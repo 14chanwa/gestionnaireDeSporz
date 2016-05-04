@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/act_tour_sub_hist_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true">
+
+            <TextView
+                android:id="@+id/act_tour_sub_hist_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </ScrollView>
+
+
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fragment_hist_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="1"
+        android:clickable="true"
+        android:src="@drawable/ic_content_copy_white_24dp"
+        app:borderWidth="0dp"
+        app:layout_anchor="@id/act_tour_sub_hist_scrollview"
+        app:layout_anchorGravity="bottom|right|end" />
+
+</android.support.design.widget.CoordinatorLayout>

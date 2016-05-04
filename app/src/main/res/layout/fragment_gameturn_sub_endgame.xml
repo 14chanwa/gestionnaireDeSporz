@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/act_fin_jeu_tv_intro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/item_row_padding"
+        android:text="Le jeu est terminé !" />
+
+    <ScrollView
+        android:id="@+id/act_fin_jeu_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/act_fin_jeu_bouton_afficher_hist"
+        android:layout_below="@id/act_fin_jeu_tv_intro">
+
+        <TextView
+            android:id="@+id/act_fin_jeu_tv_contenu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/act_fin_jeu_bouton_afficher_hist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/act_fin_jeu_bouton"
+        android:text="Copier l'historique" />
+
+    <Button
+        android:id="@+id/act_fin_jeu_bouton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/close" />
+
+</RelativeLayout>

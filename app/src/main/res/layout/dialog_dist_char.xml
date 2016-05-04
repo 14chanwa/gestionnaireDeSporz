@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/dialog_distrib_pers_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="TEST" />
+
+    <View
+        android:id="@+id/dialog_distrib_separation_haut"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/dialog_distrib_pers_tv"
+        android:background="@color/colorGray" />
+
+    <TableLayout
+        android:id="@+id/dialog_distrib_pers_table_genomes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_distrib_separation_haut"
+        android:stretchColumns="*">
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/dialog_distrib_pers_tv_hotes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="Hôtes non mutants" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="*">
+
+                    <TableRow>
+
+                        <Button
+                            android:id="@+id/dialog_distrib_pers_hotes_but_left"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="-" />
+
+                        <TextView
+                            android:id="@+id/dialog_distrib_pers_hotes_tv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0" />
+
+                        <Button
+                            android:id="@+id/dialog_distrib_pers_hotes_but_right"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="+" />
+                    </TableRow>
+                </TableLayout>
+
+            </RelativeLayout>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="Résistants" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:stretchColumns="*">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TableRow>
+
+                        <Button
+                            android:id="@+id/dialog_distrib_pers_resistants_but_left"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="-" />
+
+                        <TextView
+                            android:id="@+id/dialog_distrib_pers_resistants_tv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0" />
+
+                        <Button
+                            android:id="@+id/dialog_distrib_pers_resistants_but_right"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="+" />
+                    </TableRow>
+                </TableLayout>
+
+            </RelativeLayout>
+        </TableRow>
+    </TableLayout>
+
+    <View
+        android:id="@+id/dialog_distrib_separation"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/dialog_distrib_pers_table_genomes"
+        android:background="@color/colorGray" />
+
+
+    <ListView
+        android:id="@+id/dialog_distrib_lv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/dialog_distrib_separation"></ListView>
+
+</RelativeLayout>

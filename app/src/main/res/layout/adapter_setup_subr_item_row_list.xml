@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="15dp"
+    android:paddingTop="15dp">
+
+    <TextView
+        android:id="@+id/lay_row_list_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/item_row_padding"
+        android:text="TEST" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lay_row_list_tv"
+        android:stretchColumns="*">
+
+        <TableRow android:layout_width="0dp">
+
+            <Spinner
+                android:id="@+id/lay_row_list_spinner_role"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:paddingRight="5dp" />
+
+            <Spinner
+                android:id="@+id/lay_row_list_spinner_gene"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:paddingRight="5dp" />
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

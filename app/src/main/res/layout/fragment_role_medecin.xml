@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/role_medecin_radiogroup"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/role_medecin_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ScrollView>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/role_medecin_radiogroup"
+        android:background="@color/colorGray" />
+
+    <RadioGroup
+        android:id="@+id/role_medecin_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/role_medecin_framelay"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
+        <RadioButton
+            android:id="@+id/role_medecin_radiobutton_soigner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Soigner" />
+
+        <RadioButton
+            android:id="@+id/role_medecin_radiobutton_tuer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tuer" />
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/role_medecin_framelay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:id="@+id/role_medecin_frame_soigner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Spinner
+                android:id="@+id/role_medecin_soigner_spinner1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/role_medecin_spacer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/role_medecin_soigner_spinner1" />
+
+            <Spinner
+                android:id="@+id/role_medecin_soigner_spinner2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/role_medecin_spacer"></Spinner>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/role_medecin_frame_tuer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Spinner
+                android:id="@+id/role_medecin_tuer_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </FrameLayout>
+
+
+</RelativeLayout>

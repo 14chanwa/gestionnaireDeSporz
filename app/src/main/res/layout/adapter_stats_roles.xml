@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:stretchColumns="*">
+
+        <TableRow android:layout_width="0dp">
+
+            <TextView
+                android:id="@+id/adapter_stats_roles_tv_left"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:paddingRight="5dp"
+                android:text="NOM_ROLE"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/adapter_stats_roles_tv_right"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:paddingRight="5dp"
+                android:text="CAMP" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/adapter_stats_roles_tv_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:text="DESCRIPTION" />
+</LinearLayout>

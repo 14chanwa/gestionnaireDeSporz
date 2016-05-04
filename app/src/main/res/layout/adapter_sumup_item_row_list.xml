@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/item_row_padding"
+        android:paddingRight="@dimen/item_row_padding"
+        android:stretchColumns="*">
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/sumup_item_row_list_nom"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="NOM_PERSONNAGE"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sumup_item_row_list_gene"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="GENE" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/sumup_item_row_list_role"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="ROLE" />
+
+            <TextView
+                android:id="@+id/sumup_item_row_list_mutant"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="MUTANT" />
+
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

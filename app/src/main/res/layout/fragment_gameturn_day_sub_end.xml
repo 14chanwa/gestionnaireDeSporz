@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/act_tour_jour_fin_tv2"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/act_tour_jour_fin_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/act_tour_jour_fin_tv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/act_tour_fin_sp"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="Personnage à éliminer :" />
+
+    <Spinner
+        android:id="@+id/act_tour_fin_sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/act_tour_jour_fin_bout"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/activity_vertical_margin" />
+
+    <Button
+
+        android:id="@+id/act_tour_jour_fin_bout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/bout_suivant" />
+</RelativeLayout>

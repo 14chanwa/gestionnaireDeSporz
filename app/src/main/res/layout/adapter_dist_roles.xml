@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+
+        <TableRow>
+
+            <CheckBox
+                android:id="@+id/adapter_dist_roles_checkbox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1" />
+
+            <RelativeLayout
+                android:id="@+id/adapter_dist_roles_relatlayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:stretchColumns="*">
+
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TableRow>
+
+                        <Button
+                            android:id="@+id/adapter_dist_roles_butleft"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="-" />
+
+                        <TextView
+                            android:id="@+id/adapter_dist_roles_textview"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0" />
+
+                        <Button
+                            android:id="@+id/adapter_dist_roles_butright"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="+" />
+                    </TableRow>
+                </TableLayout>
+
+            </RelativeLayout>
+        </TableRow>
+
+    </TableLayout>
+</RelativeLayout>
