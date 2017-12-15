@@ -5,7 +5,7 @@ Current code version is 8.
 
 The app is available [on Google Play](https://play.google.com/store/apps/details?id=com.minastelien.quentin.gestionnairedesporz).
 
-For more information about the app, please check [my blog](http://quentin-cwn.free-h.fr/?page_id=42).
+
 
 ## What is "Sporz" ?
 
