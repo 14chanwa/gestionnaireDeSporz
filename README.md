@@ -3,22 +3,15 @@
 Resources for Android app 'Gestionnaire de Sporz'.
 
 
-<p align="center">
-<img src="https://raw.githubusercontent.com/14chanwa/gestionnaireDeSporz/master/wiki_ressources/screen1.png">
-<img src="https://raw.githubusercontent.com/14chanwa/gestionnaireDeSporz/master/wiki_ressources/screen2.png">
-<img src="https://raw.githubusercontent.com/14chanwa/gestionnaireDeSporz/master/wiki_ressources/screen3.png">
-</p>
-<p align="center"><em>App screens</em></p>
-
-
-<p align="center">
-<img src="https://raw.githubusercontent.com/14chanwa/gestionnaireDeSporz/master/wiki_ressources/screen4.png">
-</p>
-<p align="center"><em>Responsive design!</em></p>
-
-
 The app is available [on Google Play](https://play.google.com/store/apps/details?id=com.minastelien.quentin.gestionnairedesporz). This is my sandbox application ; I used it mainly to experiment with SQLite and responsive design features in Android. For instance, I spent some time adapting the application to tablet landscape mode. Check out the Google Play page and test for yourself!
 
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/14chanwa/gestionnaireDeSporz/master/wiki_ressources/screen1.png" width="280">
+<img src="https://raw.githubusercontent.com/14chanwa/gestionnaireDeSporz/master/wiki_ressources/screen2.png" width="280">
+<img src="https://raw.githubusercontent.com/14chanwa/gestionnaireDeSporz/master/wiki_ressources/screen3.png" width="280">
+</p>
+<p align="center"><em>App screens</em></p>
 
 
 ## What is "Sporz" ?
@@ -30,3 +23,9 @@ All the players are crew of one spaceship They know that one of them has been in
 There are two phases in the game: a day phase, when the players can freely interact, discuss the events, and in the end vote to eliminate one person, and a night phase during which all the players can do specific actions. Every player has one specific role at night, which is hidden.
 
 For more information, you may want to check the [BoardGameGeek description (EN)](https://boardgamegeek.com/boardgame/92465/sporz-original-outbreak) as well as [the official site (FR)](http://www.sporz.fr/).
+
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/14chanwa/gestionnaireDeSporz/master/wiki_ressources/screen4.png" width="840">
+</p>
+<p align="center"><em>Responsive design!</em></p>
