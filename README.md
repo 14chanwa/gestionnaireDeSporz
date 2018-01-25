@@ -1,7 +1,21 @@
 # Gestionnaire de Sporz
 
 Resources for Android app 'Gestionnaire de Sporz'.
-Current code version is 8.
+
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/14chanwa/gestionnaireDeSporz/master/wiki_ressources/screen1.png">
+<img src="https://raw.githubusercontent.com/14chanwa/gestionnaireDeSporz/master/wiki_ressources/screen2.png">
+<img src="https://raw.githubusercontent.com/14chanwa/gestionnaireDeSporz/master/wiki_ressources/screen3.png">
+</p>
+<p align="center"><em>App screens</em></p>
+
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/14chanwa/gestionnaireDeSporz/master/wiki_ressources/screen4.png">
+</p>
+<p align="center"><em>Responsive design!</em></p>
+
 
 The app is available [on Google Play](https://play.google.com/store/apps/details?id=com.minastelien.quentin.gestionnairedesporz). This is my sandbox application ; I used it mainly to experiment with SQLite and responsive design features in Android. For instance, I spent some time adapting the application to tablet landscape mode. Check out the Google Play page and test for yourself!
 
