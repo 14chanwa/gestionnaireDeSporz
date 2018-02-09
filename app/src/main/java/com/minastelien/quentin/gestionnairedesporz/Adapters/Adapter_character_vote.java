@@ -26,6 +26,10 @@ public class Adapter_character_vote extends Adapter_character {
         vote_choices = new ArrayList<Character>();
         characters = objects;
 
+        // Add "abstension" option
+        vote_choices.add(gameSingleton.ABSTENTION);
+
+        // Add "blanc" option
         vote_choices.add(gameSingleton.BLANK);
 
         for (Character p : characters) {
@@ -54,10 +58,12 @@ public class Adapter_character_vote extends Adapter_character {
 
         sp_vote.setAdapter(adapter_choix);
         if (gameSingleton.resultats_votes_jour.get(current_character) != null) {
+            // If there is already a selected choice, set it accordingly
             sp_vote.setSelection(liste_choix_sub.indexOf(gameSingleton.resultats_votes_jour.get(current_character)));
         } else {
-            sp_vote.setSelection(liste_choix_sub.indexOf(gameSingleton.BLANK));
-            gameSingleton.resultats_votes_jour.put(current_character, gameSingleton.BLANK);
+            // Else select "abstension" option by default
+            sp_vote.setSelection(liste_choix_sub.indexOf(gameSingleton.ABSTENTION));
+            gameSingleton.resultats_votes_jour.put(current_character, gameSingleton.ABSTENTION);
         }
 
         sp_vote.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

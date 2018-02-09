@@ -163,6 +163,12 @@ public class Game {
          * Character attributes
          */
         public final Character BLANK = new Character("Blanc", SIMPLE_ASTRONAUTE, NORMAL, false, false);
+
+        /*
+         * Abstention item (for vote purposes)
+         */
+        public final Character ABSTENTION = new Character("Abstension", SIMPLE_ASTRONAUTE, NORMAL, false, false);
+
         /*
          * Game related attributes
          */

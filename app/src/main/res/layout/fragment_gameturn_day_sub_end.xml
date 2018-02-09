@@ -23,7 +23,7 @@
         android:layout_above="@+id/act_tour_fin_sp"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:text="Personnage à éliminer :" />
+        android:text="Personnage à éliminer (Blanc pour aucun) :" />
 
     <Spinner
         android:id="@+id/act_tour_fin_sp"

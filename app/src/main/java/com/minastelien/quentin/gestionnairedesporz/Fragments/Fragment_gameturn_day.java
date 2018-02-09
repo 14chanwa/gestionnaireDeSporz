@@ -118,22 +118,33 @@ public class Fragment_gameturn_day extends Fragment_gameturn {
 
                                 vote_result_text = "Résultat des votes :\n\n";
                                 for (Character p : living_characters) {
-                                    if (results.get(p) == null) {
-                                        results.put(p, gameSingleton.BLANK);
+                                    // Abstention case. If player did not vote, set "abstension"
+                                    if (results.get(p) == gameSingleton.ABSTENTION || results.get(p) == null) {
+                                        vote_result_text += "  " + p.getNom() + " s'abstient\n";
+                                        results.put(p, gameSingleton.ABSTENTION);
+                                    } else {
+                                        vote_result_text += "  " + p.getNom() + " vote " + results.get(p).getNom() + "\n";
                                     }
-                                    vote_result_text += "  " + p.getNom() + " vote " + results.get(p).getNom() + "\n";
+                                    // Also add player to final vote counts
                                     counts.put(p, 0);
                                 }
                                 counts.put(gameSingleton.BLANK, 0);
 
                                 // Qui est le personnage le plus voté ?
+                                int nb_abstentions = 0;
                                 for (Character p : living_characters) {
+
                                     Character cible = results.get(p);
-                                    counts.put(cible, counts.get(cible) + 1);
+                                    // Count abstensions
+                                    if (cible != gameSingleton.ABSTENTION)
+                                        counts.put(cible, counts.get(cible) + 1);
+                                    else
+                                        nb_abstentions++;
+
                                 }
 
                                 int max = 0;
-                                vote_result_text += "\nNombre de votes :\n\n";
+                                vote_result_text += "\nNombre de votes contre :\n\n";
                                 for (Character p : living_characters) {
                                     max = Math.max(max, counts.get(p));
                                     vote_result_text += "  " + p.getNom() + " : " + counts.get(p) + "\n";
@@ -142,11 +153,16 @@ public class Fragment_gameturn_day extends Fragment_gameturn {
                                 max = Math.max(max, counts.get(gameSingleton.BLANK));
                                 vote_result_text += "  " + gameSingleton.BLANK.getNom() + " : " + counts.get(gameSingleton.BLANK) + "\n";
 
-                                vote_result_text += "\nPersonnage(s) ayant le plus de votes :\n\n";
-                                for (Character p : counts.keySet()) {
-                                    if (counts.get(p) == max) {
-                                        vote_result_text += "  " + p.getNom() + "\n";
+                                if (max > 0) {
+                                    vote_result_text += "\nPersonnage(s) ayant le plus de votes :\n\n";
+                                    for (Character p : counts.keySet()) {
+                                        if (counts.get(p) == max) {
+                                            vote_result_text += "  " + p.getNom() + " : " + counts.get(p) + "\n";
+                                        }
                                     }
+                                    vote_result_text += "\nNombre d'abstensions : " + nb_abstentions + "\n\n";
+                                } else {
+                                    vote_result_text += "\nTout le monde s'est abstenu.\n\n";
                                 }
 
                                 tv_day_end.setText(vote_result_text);
