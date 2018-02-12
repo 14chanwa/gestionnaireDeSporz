@@ -1312,14 +1312,12 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
 
         // Create and show the dialog.
         Dialog_end_night_gameturn newFragment = Dialog_end_night_gameturn.newInstance(text);
-        newFragment.setFragment_gameturn_night(this);
         newFragment.setCancelable(false);
         newFragment.show(ft, "dialog");
     }
 
     public static class Dialog_end_night_gameturn extends Dialog_fin_tour {
 
-        private Fragment_gameturn_night fragment_gameturn_night = null;
 
         public static Dialog_end_night_gameturn newInstance(String text) {
             Dialog_end_night_gameturn f = new Dialog_end_night_gameturn();
@@ -1328,10 +1326,6 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
             args.putString("texte_dial", text);
             f.setArguments(args);
             return f;
-        }
-
-        public void setFragment_gameturn_night(Fragment_gameturn_night fr) {
-            this.fragment_gameturn_night = fr;
         }
 
         @Override
@@ -1345,8 +1339,8 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
             builder.setView(lay_diag);
             builder.setPositiveButton(R.string.bout_suivant, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    // Passage au suivant
-                    fragment_gameturn_night.display_next_role();
+                    // Go to next role
+                    ((Fragment_gameturn_night)((Activity_gameturn) getActivity()).getAndReleaseFragment_game()).display_next_role();
                     dialog.dismiss();
                 }
             });

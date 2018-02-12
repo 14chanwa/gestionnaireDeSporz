@@ -255,8 +255,9 @@ public abstract class Activity_gameturn extends Activity_main {
      */
     protected abstract String getTabName();
 
-
-    private Fragment_gameturn getAndReleaseFragment_game() {
+    // Needs to be public so that Dialog_end_night_gameturn class can access fragment to trigger
+    // next role
+    public Fragment_gameturn getAndReleaseFragment_game() {
         if (fragment_game != null) {
             return fragment_game;
         } else {
