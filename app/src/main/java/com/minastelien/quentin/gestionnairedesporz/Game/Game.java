@@ -167,7 +167,7 @@ public class Game {
         /*
          * Abstention item (for vote purposes)
          */
-        public final Character ABSTENTION = new Character("Abstension", SIMPLE_ASTRONAUTE, NORMAL, false, false);
+        public final Character ABSTENTION = new Character("Abstention", SIMPLE_ASTRONAUTE, NORMAL, false, false);
 
         /*
          * Game related attributes

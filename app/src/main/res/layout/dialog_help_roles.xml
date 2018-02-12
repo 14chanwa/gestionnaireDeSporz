@@ -13,7 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/dialog_help_roles_but"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true">
+        <!-- [2.03] The Fragment_stats_roles was added directly in the layout file. -->
+        <fragment android:name="com.minastelien.quentin.gestionnairedesporz.Fragments.Fragment_stats_roles"
+            android:id="@+id/fragment_stats_roles_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
 
     <Button
         android:id="@+id/dialog_help_roles_but"

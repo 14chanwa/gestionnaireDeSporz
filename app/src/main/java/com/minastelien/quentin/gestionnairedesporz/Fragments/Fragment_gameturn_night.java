@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -43,6 +44,13 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
     int current_role_index = 0;
     private RelativeLayout lay_role_night;
     private Button but_next;
+
+    /**
+     * [2.03] Checks if the user already mashed the 'next' button, so as not to trigger twice the
+     * end-of-turn event.
+     */
+    private boolean button_click_caught = false;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -143,12 +151,18 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
     }
 
     private void display_next_role() {
+
+        // Select next role
         current_role_index++;
 
+        // Display next role if victory conditions are not satisfied
         if (!((Activity_gameturn) getActivity()).check_victory_conditions()) {
             display_role(current_role_index);
             ((Activity_gameturn_night) getActivity()).update_all();
         }
+
+        // [2.03] Release "next" button neutralization
+        button_click_caught = false;
     }
 
     private void display_special_role(Role role) {
@@ -214,67 +228,73 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         but_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Character perso_cible = (Character) mutant_sp.getSelectedItem();
-                Character perso_cible_paralyse = (Character) mutant_sp_paralyse.getSelectedItem();
 
-                if (perso_cible.equals(perso_cible_paralyse)) {
-                    Toast.makeText(getActivity(), "ERREUR : on ne peut pas tuer/muter et paralyser la même personne !", Toast.LENGTH_SHORT).show();
-                } else {
+                // [2.03]
+                if (!button_click_caught) { // check if the event was already triggered
 
-                    // Préparation des boites de dialogue...
-                    String str_une_tape = "";
-                    String str_deux_tapes = "";
-                    String str_trois_tapes = "";
-                    String str_paralyse = "";
+                    Character perso_cible = (Character) mutant_sp.getSelectedItem();
+                    Character perso_cible_paralyse = (Character) mutant_sp_paralyse.getSelectedItem();
 
-                    gameSingleton.getCurrent_game().addHist_jeu("---\nTour des mutants\n\n");
-
-                    if (mutant_bouton_muter.isChecked()) {
-                        // Muter
-                        gameSingleton.getCurrent_game().addHist_jeu("Les mutants choisissent de muter " + perso_cible.getNom() + "\n\n");
-                        add_to_action_list(perso_cible, Game.GameSingleton.Night_action.MUTE);
-                        if (action_contaminer(perso_cible)) {
-                            str_deux_tapes += perso_cible.getNom();
-                        } else {
-                            str_trois_tapes += perso_cible.getNom();
-                        }
+                    if (perso_cible.equals(perso_cible_paralyse)) {
+                        Toast.makeText(getActivity(), "ERREUR : on ne peut pas tuer/muter et paralyser la même personne !", Toast.LENGTH_SHORT).show();
                     } else {
-                        // Tuer
-                        gameSingleton.getCurrent_game().addHist_jeu("Les mutants choisissent de tuer " + perso_cible.getNom() + ".\n\n");
-                        perso_cible.setMort(true);
-                        add_to_action_list(perso_cible, Game.GameSingleton.Night_action.TUE);
-                        str_une_tape += perso_cible.getNom();
-                    }
 
-                    // Paralyser
-                    gameSingleton.getCurrent_game().addHist_jeu("Les mutants choisissent de paralyser " + perso_cible_paralyse.getNom() + ".\n\n");
-                    perso_cible_paralyse.setParalyse(true);
-                    add_to_action_list(perso_cible_paralyse, Game.GameSingleton.Night_action.PARALYSE);
-                    str_paralyse += perso_cible_paralyse.getNom();
+                        // [2.03]
+                        button_click_caught = true; // set even caught
 
-                    ((Activity_gameturn_night) getActivity()).update_all();
+                        // Préparation des boites de dialogue...
+                        String str_une_tape = "";
+                        String str_deux_tapes = "";
+                        String str_trois_tapes = "";
+                        String str_paralyse = "";
 
-                    // Ajouter l'un des loups à la liste des personnes visiteurs
-                    int size = set_mutants_vivants.size();
-                    int item = new Random().nextInt(size);
-                    int i = 0;
-                    for (Character pers : set_mutants_vivants) {
-                        if (i == item)
-                            add_to_visit_list(perso_cible, pers);
+                        gameSingleton.getCurrent_game().addHist_jeu("---\nTour des mutants\n\n");
 
-                        i = i + 1;
-                    }
-                    item = new Random().nextInt(size);
-                    i = 0;
-                    for (Character pers : set_mutants_vivants) {
-                        if (i == item)
-                            add_to_visit_list(perso_cible_paralyse, pers);
+                        if (mutant_bouton_muter.isChecked()) {
+                            // Muter
+                            gameSingleton.getCurrent_game().addHist_jeu("Les mutants choisissent de muter " + perso_cible.getNom() + "\n\n");
+                            add_to_action_list(perso_cible, Game.GameSingleton.Night_action.MUTE);
+                            if (action_contaminer(perso_cible)) {
+                                str_deux_tapes += perso_cible.getNom();
+                            } else {
+                                str_trois_tapes += perso_cible.getNom();
+                            }
+                        } else {
+                            // Tuer
+                            gameSingleton.getCurrent_game().addHist_jeu("Les mutants choisissent de tuer " + perso_cible.getNom() + ".\n\n");
+                            perso_cible.setMort(true);
+                            add_to_action_list(perso_cible, Game.GameSingleton.Night_action.TUE);
+                            str_une_tape += perso_cible.getNom();
+                        }
 
-                        i = i + 1;
-                    }
+                        // Paralyser
+                        gameSingleton.getCurrent_game().addHist_jeu("Les mutants choisissent de paralyser " + perso_cible_paralyse.getNom() + ".\n\n");
+                        perso_cible_paralyse.setParalyse(true);
+                        add_to_action_list(perso_cible_paralyse, Game.GameSingleton.Night_action.PARALYSE);
+                        str_paralyse += perso_cible_paralyse.getNom();
 
-                    if (!((Activity_gameturn) getActivity()).check_victory_conditions()) {
-                        while (true) {
+                        ((Activity_gameturn_night) getActivity()).update_all();
+
+                        // Ajouter l'un des loups à la liste des personnes visiteurs
+                        int size = set_mutants_vivants.size();
+                        int item = new Random().nextInt(size);
+                        int i = 0;
+                        for (Character pers : set_mutants_vivants) {
+                            if (i == item)
+                                add_to_visit_list(perso_cible, pers);
+
+                            i = i + 1;
+                        }
+                        item = new Random().nextInt(size);
+                        i = 0;
+                        for (Character pers : set_mutants_vivants) {
+                            if (i == item)
+                                add_to_visit_list(perso_cible_paralyse, pers);
+
+                            i = i + 1;
+                        }
+
+                        if (!((Activity_gameturn) getActivity()).check_victory_conditions()) {
                             // On affiche une boite de dialogue avec les choses à dire
                             showDialog_end_night_gameturn("Il est temps de faire le tour... Taper :\n\n" +
                                     " - 1 fois si le personnage est mort\n" +
@@ -285,7 +305,6 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
                                     "\n 3 fois : " + str_trois_tapes +
                                     "\n\n Puis le tour des paralysés... Taper :\n\n" +
                                     " 1 fois : " + str_paralyse);
-                            break;
                         }
                     }
                 }
@@ -359,91 +378,98 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         but_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (layout_soigner.getVisibility() == View.VISIBLE) {
-                    if (spinner_soigner_1.getVisibility() == View.VISIBLE && spinner_soigner_2.getVisibility() == View.VISIBLE) {
-                        if (spinner_soigner_1.getSelectedItem().equals(spinner_soigner_2.getSelectedItem())) {
-                            Toast.makeText(getActivity(), "ERREUR : choisissez deux personnes différentes à soigner !", Toast.LENGTH_SHORT).show();
-                            return;
+
+                // [2.03]
+                if (!button_click_caught) { // check if the event was already triggered
+
+                    if (layout_soigner.getVisibility() == View.VISIBLE) {
+                        if (spinner_soigner_1.getVisibility() == View.VISIBLE && spinner_soigner_2.getVisibility() == View.VISIBLE) {
+                            if (spinner_soigner_1.getSelectedItem().equals(spinner_soigner_2.getSelectedItem())) {
+                                Toast.makeText(getActivity(), "ERREUR : choisissez deux personnes différentes à soigner !", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                         }
                     }
-                }
 
+                    // [2.03]
+                    button_click_caught = true; // set even caught
 
-                // Préparation des boites de dialogue...
-                String str_une_tape = "";
-                String str_deux_tapes = "";
-                String str_trois_tapes = "";
+                    // Préparation des boites de dialogue...
+                    String str_une_tape = "";
+                    String str_deux_tapes = "";
+                    String str_trois_tapes = "";
 
-                gameSingleton.getCurrent_game().addHist_jeu("---\nTour des médecins\n\n");
-                Character perso_cible_1;
-                Character perso_cible_2;
+                    gameSingleton.getCurrent_game().addHist_jeu("---\nTour des médecins\n\n");
+                    Character perso_cible_1;
+                    Character perso_cible_2;
 
-                // Ajouter l'un des médecins à la liste des personnes visiteurs
-                int size = set_medecins_vivants.size();
-                int item = new Random().nextInt(size);
-                int i = 0;
-                Character medecin_tmp = gameSingleton.BLANK;
-                for (Character pers : set_medecins_vivants) {
-                    if (i == item)
-                        medecin_tmp = pers;
-                    i = i + 1;
-                }
-                final Character medecin_retenu = medecin_tmp;
+                    // Ajouter l'un des médecins à la liste des personnes visiteurs
+                    int size = set_medecins_vivants.size();
+                    int item = new Random().nextInt(size);
+                    int i = 0;
+                    Character medecin_tmp = gameSingleton.BLANK;
+                    for (Character pers : set_medecins_vivants) {
+                        if (i == item)
+                            medecin_tmp = pers;
+                        i = i + 1;
+                    }
+                    final Character medecin_retenu = medecin_tmp;
 
-                if (medecin_bouton_soigner.isChecked()) {
-                    // Soigner
-                    if (set_medecins_vivants.size() < 2) {
-                        perso_cible_1 = (Character) spinner_soigner_1.getSelectedItem();
-                        gameSingleton.getCurrent_game().addHist_jeu("Le médecin choisit de soigner " + perso_cible_1 + "\n");
-                        add_to_action_list(perso_cible_1, Game.GameSingleton.Night_action.SOIGNE);
-                        if (action_soigner(perso_cible_1)) {
-                            str_deux_tapes += perso_cible_1.getNom();
+                    if (medecin_bouton_soigner.isChecked()) {
+                        // Soigner
+                        if (set_medecins_vivants.size() < 2) {
+                            perso_cible_1 = (Character) spinner_soigner_1.getSelectedItem();
+                            gameSingleton.getCurrent_game().addHist_jeu("Le médecin choisit de soigner " + perso_cible_1 + "\n");
+                            add_to_action_list(perso_cible_1, Game.GameSingleton.Night_action.SOIGNE);
+                            if (action_soigner(perso_cible_1)) {
+                                str_deux_tapes += perso_cible_1.getNom();
+                            } else {
+                                str_trois_tapes += perso_cible_1.getNom();
+                            }
+                            add_to_visit_list(perso_cible_1, medecin_retenu);
                         } else {
-                            str_trois_tapes += perso_cible_1.getNom();
+                            perso_cible_1 = (Character) spinner_soigner_1.getSelectedItem();
+                            perso_cible_2 = (Character) spinner_soigner_2.getSelectedItem();
+                            gameSingleton.getCurrent_game().addHist_jeu("Les médecins choisissent de soigner " + perso_cible_1 + " et " + perso_cible_2 + "\n\n");
+                            add_to_action_list(perso_cible_1, Game.GameSingleton.Night_action.SOIGNE);
+                            add_to_action_list(perso_cible_2, Game.GameSingleton.Night_action.SOIGNE);
+                            if (action_soigner(perso_cible_1)) {
+                                str_deux_tapes += perso_cible_1.getNom() + "    ";
+                            } else {
+                                str_trois_tapes += perso_cible_1.getNom() + "   ";
+                            }
+                            if (action_soigner(perso_cible_2)) {
+                                str_deux_tapes += perso_cible_2.getNom() + "    ";
+                            } else {
+                                str_trois_tapes += perso_cible_2.getNom();
+                            }
+                            add_to_visit_list(perso_cible_1, medecin_retenu);
+                            add_to_visit_list(perso_cible_2, medecin_retenu);
                         }
-                        add_to_visit_list(perso_cible_1, medecin_retenu);
                     } else {
-                        perso_cible_1 = (Character) spinner_soigner_1.getSelectedItem();
-                        perso_cible_2 = (Character) spinner_soigner_2.getSelectedItem();
-                        gameSingleton.getCurrent_game().addHist_jeu("Les médecins choisissent de soigner " + perso_cible_1 + " et " + perso_cible_2 + "\n\n");
-                        add_to_action_list(perso_cible_1, Game.GameSingleton.Night_action.SOIGNE);
-                        add_to_action_list(perso_cible_2, Game.GameSingleton.Night_action.SOIGNE);
-                        if (action_soigner(perso_cible_1)) {
-                            str_deux_tapes += perso_cible_1.getNom() + "    ";
-                        } else {
-                            str_trois_tapes += perso_cible_1.getNom() + "   ";
-                        }
-                        if (action_soigner(perso_cible_2)) {
-                            str_deux_tapes += perso_cible_2.getNom() + "    ";
-                        } else {
-                            str_trois_tapes += perso_cible_2.getNom();
-                        }
+                        // Tuer
+                        perso_cible_1 = (Character) spinner_tuer.getSelectedItem();
+                        gameSingleton.getCurrent_game().addHist_jeu("Les médecins choisissent de tuer " + perso_cible_1.getNom() + ".\n\n");
+                        perso_cible_1.setMort(true);
+                        add_to_action_list(perso_cible_1, Game.GameSingleton.Night_action.TUE);
+                        str_une_tape += perso_cible_1.getNom();
                         add_to_visit_list(perso_cible_1, medecin_retenu);
-                        add_to_visit_list(perso_cible_2, medecin_retenu);
                     }
-                } else {
-                    // Tuer
-                    perso_cible_1 = (Character) spinner_tuer.getSelectedItem();
-                    gameSingleton.getCurrent_game().addHist_jeu("Les médecins choisissent de tuer " + perso_cible_1.getNom() + ".\n\n");
-                    perso_cible_1.setMort(true);
-                    add_to_action_list(perso_cible_1, Game.GameSingleton.Night_action.TUE);
-                    str_une_tape += perso_cible_1.getNom();
-                    add_to_visit_list(perso_cible_1, medecin_retenu);
-                }
-                ((Activity_gameturn_night) getActivity()).update_all();
+                    ((Activity_gameturn_night) getActivity()).update_all();
 
-                // Cas où l'on élimine le dernier mutant
-                if (!((Activity_gameturn) getActivity()).check_victory_conditions()) {
+                    // Cas où l'on élimine le dernier mutant
+                    if (!((Activity_gameturn) getActivity()).check_victory_conditions()) {
 
-                    // On affiche une boite de dialogue avec les choses à dire
-                    showDialog_end_night_gameturn("Il est temps de faire le tour... Taper :\n\n" +
-                            " - 1 fois si le personnage est mort\n" +
-                            " - 2 fois si le personnage a été soigné\n" +
-                            " - 3 fois si le soin n'a pas marché.\n\n" +
-                            " 1 fois : " + str_une_tape +
-                            "\n 2 fois : " + str_deux_tapes +
-                            "\n 3 fois : " + str_trois_tapes);
+                        // On affiche une boite de dialogue avec les choses à dire
+                        showDialog_end_night_gameturn("Il est temps de faire le tour... Taper :\n\n" +
+                                " - 1 fois si le personnage est mort\n" +
+                                " - 2 fois si le personnage a été soigné\n" +
+                                " - 3 fois si le soin n'a pas marché.\n\n" +
+                                " 1 fois : " + str_une_tape +
+                                "\n 2 fois : " + str_deux_tapes +
+                                "\n 3 fois : " + str_trois_tapes);
 
+                    }
                 }
             }
         });
@@ -457,12 +483,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
 
         // Qui est l'informaticien ?
         Character pers_tmp = gameSingleton.BLANK;
-        final ArrayList<Character> tous_pers_sauf_informaticien = new ArrayList<Character>();
         for (Character p : gameSingleton.personnages_vivants_debut_tour) {
             if (p.getRole().equals(gameSingleton.INFORMATICIEN)) {
                 pers_tmp = p;
-            } else {
-                tous_pers_sauf_informaticien.add(p);
+                break;
             }
         }
         final Character pers_informaticien = pers_tmp;
@@ -1328,6 +1352,7 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
             return f;
         }
 
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -1340,7 +1365,7 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
             builder.setPositiveButton(R.string.bout_suivant, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     // Go to next role
-                    ((Fragment_gameturn_night)((Activity_gameturn) getActivity()).getAndReleaseFragment_game()).display_next_role();
+                    ((Fragment_gameturn_night) ((Activity_gameturn) getActivity()).getFragment_game()).display_next_role();
                     dialog.dismiss();
                 }
             });

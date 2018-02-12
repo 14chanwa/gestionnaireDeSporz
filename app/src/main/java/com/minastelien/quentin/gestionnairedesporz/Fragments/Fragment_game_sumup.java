@@ -1,9 +1,11 @@
 package com.minastelien.quentin.gestionnairedesporz.Fragments;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -33,7 +35,6 @@ import com.minastelien.quentin.gestionnairedesporz.R;
 public class Fragment_game_sumup extends Fragment_main {
 
     private CoordinatorLayout lay_sumup;
-    private ListView lv_sumup;
     private ArrayAdapter<Character> ad_sumup;
 
     private TextView tv_recap;
@@ -51,15 +52,17 @@ public class Fragment_game_sumup extends Fragment_main {
      *
      * @param inflater Context inflater.
      */
+    @SuppressLint("InflateParams")
     protected void build_sumup(LayoutInflater inflater) {
         lay_sumup = (CoordinatorLayout) inflater.inflate(R.layout.fragment_sumup_with_recap, null);
 
-        // Initialisation de la liste des personnages
-        lv_sumup = (ListView) lay_sumup.findViewById(R.id.sumup_lv);
+        // Initialize character list
+        ListView lv_sumup = (ListView) lay_sumup.findViewById(R.id.sumup_lv);
         ad_sumup = new Adapter_character_sumup(getActivity(), gameSingleton.getCurrent_game().getCharacters(), gameSingleton);
         lv_sumup.setAdapter(ad_sumup);
         lv_sumup.setLongClickable(true);
 
+        // Modify character if long pressed
         lv_sumup.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -68,6 +71,7 @@ public class Fragment_game_sumup extends Fragment_main {
             }
         });
 
+        // Display role help dialog if clicked on the bottom right red button
         lay_sumup.findViewById(R.id.fragment_sumup_fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,6 +149,7 @@ public class Fragment_game_sumup extends Fragment_main {
             this.gameSingleton = Game.getGameSingleton();
         }
 
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the Builder class for convenient dialog construction

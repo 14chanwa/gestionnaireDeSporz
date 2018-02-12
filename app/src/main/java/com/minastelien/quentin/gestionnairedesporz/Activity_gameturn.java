@@ -257,7 +257,7 @@ public abstract class Activity_gameturn extends Activity_main {
 
     // Needs to be public so that Dialog_end_night_gameturn class can access fragment to trigger
     // next role
-    public Fragment_gameturn getAndReleaseFragment_game() {
+    private Fragment_gameturn getAndReleaseFragment_game() {
         if (fragment_game != null) {
             return fragment_game;
         } else {
@@ -269,6 +269,15 @@ public abstract class Activity_gameturn extends Activity_main {
                 fragment_game = new_Fragment_game_instance();
             }
         }
+        return fragment_game;
+    }
+
+    /**
+     * [2.03] Gets the game fragment without releasing it.
+     *
+     * @return
+     */
+    public Fragment_gameturn getFragment_game() {
         return fragment_game;
     }
 

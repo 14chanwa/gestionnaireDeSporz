@@ -90,7 +90,9 @@ public abstract class Activity_main extends AppCompatActivity {
                 getDialog().setCanceledOnTouchOutside(true);
             }
             RelativeLayout lay = (RelativeLayout) inflater.inflate(R.layout.dialog_help_roles, container, false);
-            getChildFragmentManager().beginTransaction().add(R.id.dialog_help_roles_frlay, new Fragment_stats_roles()).commit();
+
+            // [2.03] The Fragment_stats_roles was added directly in the layout file.
+
             lay.findViewById(R.id.dialog_help_roles_but).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

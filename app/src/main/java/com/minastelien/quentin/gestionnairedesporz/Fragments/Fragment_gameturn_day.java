@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -46,6 +47,9 @@ public class Fragment_gameturn_day extends Fragment_gameturn {
     private TextView tv_day_end;
     private Spinner sp_day_end;
 
+    // [2.03] Fixed issue : rotating the screen would cancel vote conclusion
+    private int current_view_index = 0; // 0 for votes, 1 for debrief
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,14 +65,16 @@ public class Fragment_gameturn_day extends Fragment_gameturn {
         build_end();
 
         if (savedInstanceState != null) {
-            selectItem(savedInstanceState.getInt(KEY_CURRENT_FRAME_VOTE));
+            // [2.03] Fixed issue : rotating the screen would cancel vote conclusion
+            current_view_index = savedInstanceState.getInt(KEY_CURRENT_FRAME_VOTE);
             if (savedInstanceState.getString(KEY_VOTE_RESULT_TEXT) != null) {
                 vote_result_text = savedInstanceState.getString(KEY_VOTE_RESULT_TEXT);
                 tv_day_end.setText(vote_result_text);
             }
-        } else {
-            selectItem(0);
         }
+
+        // [2.03] Fixed issue : rotating the screen would cancel vote conclusion
+        selectItem(current_view_index);
 
         getActivity().setTitle("Jour " + gameSingleton.getCurrent_game().getTurn_count());
 
@@ -160,15 +166,15 @@ public class Fragment_gameturn_day extends Fragment_gameturn {
                                             vote_result_text += "  " + p.getNom() + " : " + counts.get(p) + "\n";
                                         }
                                     }
-                                    vote_result_text += "\nNombre d'abstensions : " + nb_abstentions + "\n\n";
+                                    vote_result_text += "\nNombre d'abstentions : " + nb_abstentions + "\n\n";
                                 } else {
                                     vote_result_text += "\nTout le monde s'est abstenu.\n\n";
                                 }
 
                                 tv_day_end.setText(vote_result_text);
 
-                                lay_day_vote.setVisibility(View.INVISIBLE);
-                                lay_day_end.setVisibility(View.VISIBLE);
+                                current_view_index = 1;
+                                selectItem(current_view_index);
 
                             }
                         })
@@ -248,13 +254,9 @@ public class Fragment_gameturn_day extends Fragment_gameturn {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        int j = 0;
-        if (lay_day_vote != null && lay_day_vote.getVisibility() == View.VISIBLE) {
-            j = 0;
-        } else if (lay_day_end != null && lay_day_end.getVisibility() == View.VISIBLE) {
-            j = 1;
-        }
-        outState.putInt(KEY_CURRENT_FRAME_VOTE, j);
+
+        // [2.03] Fixed issue : rotating the screen would cancel vote conclusion
+        outState.putInt(KEY_CURRENT_FRAME_VOTE, current_view_index);
         outState.putString(KEY_VOTE_RESULT_TEXT, vote_result_text);
     }
 
@@ -286,6 +288,7 @@ public class Fragment_gameturn_day extends Fragment_gameturn {
             return f;
         }
 
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the Builder class for convenient dialog construction
