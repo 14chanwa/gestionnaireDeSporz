@@ -14,7 +14,6 @@ import com.minastelien.quentin.gestionnairedesporz.Game.Role;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 /**
  * This activity generates a role composition according to user settings.
@@ -34,9 +33,6 @@ public class Activity_setup_subr_dist extends Activity_main {
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // For use in randomization.
-        final long seed = System.nanoTime();
 
         roles_a_choisir = new ArrayList<>();
         for (Role r : gameSingleton.ROLES_LIST) {
@@ -133,25 +129,34 @@ public class Activity_setup_subr_dist extends Activity_main {
             public void onClick(View v) {
                 ArrayList<Role> roles_choisis = new ArrayList<Role>();
 
-                for (int i = 0; i < dist_adapter.getChoix().size(); i++) {
-                    roles_choisis.add(dist_adapter.getChoix().get(i));
-                }
+                roles_choisis.addAll(dist_adapter.getChoix());
 
                 if (roles_choisis.size() > gameSingleton.getCurrent_game().getCharacters().size()) {
                     Toast.makeText(getApplicationContext(), "ERREUR : il y a " + roles_choisis.size() + " roles et " + gameSingleton.getCurrent_game().getCharacters().size() + " joueurs  !", Toast.LENGTH_SHORT).show();
                 } else {
 
-                    // Distribution des rôles
-                    int longueur = roles_choisis.size();
-                    for (int i = 0; i < gameSingleton.getCurrent_game().getCharacters().size() - longueur; i++) {
+                    // [2.04] Fixed issue that made the distribution biased (roles were not "that" shuffled)
+
+                    /*
+                     * Distribution des rôles
+                     */
+
+                    // Ajoute autant de simples astronautes que nécessaire
+                    for (int i = 0; i < gameSingleton.getCurrent_game().getCharacters().size() - roles_choisis.size(); i++) {
                         roles_choisis.add(gameSingleton.SIMPLE_ASTRONAUTE);
                     }
-                    Collections.shuffle(roles_choisis, new Random(seed));
+
+                    // On mélange les rôles et on les distribue dans cet ordre aux personnages
+                    Collections.shuffle(roles_choisis);
                     for (int i = 0; i < gameSingleton.getCurrent_game().getCharacters().size(); i++) {
                         gameSingleton.getCurrent_game().getCharacters().get(i).setRole(roles_choisis.get(i));
                     }
 
-                    // Distribution des génomes
+                    /*
+                     * Distribution des génomes
+                     */
+
+                    // Les mutants de base sont forcément hôtes
                     for (Character p : gameSingleton.getCurrent_game().getCharacters()) {
                         if (!p.getRole().equals(gameSingleton.MUTANT_DE_BASE)) {
                             p.setGene(gameSingleton.NORMAL);
@@ -161,7 +166,7 @@ public class Activity_setup_subr_dist extends Activity_main {
                     }
 
                     ArrayList<Character> liste_pers_pour_genomes = (ArrayList) gameSingleton.getCurrent_game().getCharacters().clone();
-                    Collections.shuffle(liste_pers_pour_genomes, new Random(seed));
+                    Collections.shuffle(liste_pers_pour_genomes);
 
                     int max_hotes = Integer.parseInt(tv_hotes.getText().toString());
                     int compteur_hotes = 0;
@@ -197,6 +202,15 @@ public class Activity_setup_subr_dist extends Activity_main {
             }
         });
 
+        // [2.04] Add restore state to keep config across screen rotation
+        if (savedInstanceState != null) {
+            tv_hotes.setText(String.valueOf(savedInstanceState.getInt("Hotes")));
+            tv_resistants.setText(String.valueOf(savedInstanceState.getInt("Resistants")));
+            for (Role role : dist_adapter.roles_count.keySet()) {
+                dist_adapter.roles_count.put(role, savedInstanceState.getInt(role.getNom()));
+            }
+        }
+
         setContentView(layout);
     }
 
@@ -204,5 +218,23 @@ public class Activity_setup_subr_dist extends Activity_main {
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
+        // [2.04] Add save state to keep config across screen rotation
+        int nb_hotes = 0;
+        try {
+            nb_hotes = Integer.parseInt(tv_hotes.getText().toString());
+        } catch (NumberFormatException e) {
+            // Nothing
+        }
+        savedInstanceState.putInt("Hotes", nb_hotes);
+        int nb_resistants = 0;
+        try {
+            nb_resistants = Integer.parseInt(tv_resistants.getText().toString());
+        } catch (NumberFormatException e) {
+            // Nothing
+        }
+        savedInstanceState.putInt("Resistants", nb_resistants);
+        for (Role role : dist_adapter.roles_count.keySet()) {
+            savedInstanceState.putInt(role.getNom(), dist_adapter.roles_count.get(role));
+        }
     }
 }

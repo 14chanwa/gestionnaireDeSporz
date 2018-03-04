@@ -24,7 +24,7 @@ import java.util.HashMap;
 public class Adapter_role_dist extends ArrayAdapter<Role> {
 
     protected ArrayList<Role> roles;
-    protected HashMap<Role, Integer> roles_count;
+    public HashMap<Role, Integer> roles_count;
     protected Context context;
 
     protected Game.GameSingleton gameSingleton;
@@ -34,6 +34,9 @@ public class Adapter_role_dist extends ArrayAdapter<Role> {
         this.context = context;
         this.roles = objects;
         roles_count = new HashMap<>();
+        for (Role role : roles) {
+            roles_count.put(role, 0);
+        }
         gameSingleton = sing;
     }
 
@@ -56,28 +59,20 @@ public class Adapter_role_dist extends ArrayAdapter<Role> {
         final Button button_left = (Button) layout_sub.findViewById(R.id.adapter_dist_roles_butleft);
         final Button button_right = (Button) layout_sub.findViewById(R.id.adapter_dist_roles_butright);
 
+        checkbox.setText(roles.get(position).getNom());
+
         if (roles.get(position).equals(gameSingleton.MUTANT_DE_BASE) || roles.get(position).equals(gameSingleton.MEDECIN)) {
             layout_sub.setVisibility(View.VISIBLE);
-
-            try {
-                int value = roles_count.get(roles.get(position));
-                layout_sub_edittext.setText("" + value);
-            } catch (NullPointerException e) {
-                layout_sub_edittext.setText("" + 0);
-            }
+            
+            layout_sub_edittext.setText(String.valueOf(roles_count.get(roles.get(position))));
 
             button_left.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int value;
-                    try {
-                        value = Integer.parseInt(layout_sub_edittext.getText().toString());
-                    } catch (NumberFormatException e) {
-                        value = 0;
-                    }
+                    int value = roles_count.get(roles.get(position));
                     if (value > 0) {
                         layout_sub_edittext.setText("" + (value - 1));
-                        roles_count.put(roles.get(position), Integer.parseInt(layout_sub_edittext.getText().toString()));
+                        roles_count.put(roles.get(position), value - 1);
                         if (value - 1 <= 0) {
                             checkbox.setChecked(false);
                         }
@@ -88,14 +83,9 @@ public class Adapter_role_dist extends ArrayAdapter<Role> {
             button_right.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int valeur;
-                    try {
-                        valeur = Integer.parseInt(layout_sub_edittext.getText().toString());
-                    } catch (NumberFormatException e) {
-                        valeur = 0;
-                    }
-                    layout_sub_edittext.setText("" + (valeur + 1));
-                    roles_count.put(roles.get(position), Integer.parseInt(layout_sub_edittext.getText().toString()));
+                    int value = roles_count.get(roles.get(position));
+                    layout_sub_edittext.setText("" + (value + 1));
+                    roles_count.put(roles.get(position), value + 1);
                     checkbox.setChecked(true);
                 }
             });
@@ -103,19 +93,19 @@ public class Adapter_role_dist extends ArrayAdapter<Role> {
             layout_sub.setVisibility(View.INVISIBLE);
         }
 
-        checkbox.setText(roles.get(position).getNom());
-        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        // [2.04] Fixed wrong listener called (used to cancel choice when view is recycled)
+        if (roles_count.get(roles.get(position)) > 0) {
+            checkbox.setChecked(true);
+        } else {
+            checkbox.setChecked(false);
+        }
+        checkbox.setOnClickListener(new CompoundButton.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+            public void onClick(View view) {
+                if (checkbox.isChecked()) {
+                    roles_count.put(roles.get(position), 1);
                     if (roles.get(position).equals(gameSingleton.MEDECIN) || roles.get(position).equals(gameSingleton.MUTANT_DE_BASE)) {
-                        try {
-                            roles_count.put(roles.get(position), Integer.parseInt(layout_sub_edittext.getText().toString()));
-                        } catch (NumberFormatException e) {
-                            roles_count.put(roles.get(position), 0);
-                        }
-                    } else {
-                        roles_count.put(roles.get(position), 1);
+                        layout_sub_edittext.setText("" + 1);
                     }
                 } else {
                     roles_count.put(roles.get(position), 0);
