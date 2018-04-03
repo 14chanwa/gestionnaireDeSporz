@@ -32,9 +32,8 @@ public class Adapter_character_vote extends Adapter_character {
         // Add "blanc" option
         vote_choices.add(gameSingleton.BLANK);
 
-        for (Character p : characters) {
-            vote_choices.add(p);
-        }
+        // Add characters
+        vote_choices.addAll(characters);
 
     }
 
@@ -49,10 +48,10 @@ public class Adapter_character_vote extends Adapter_character {
             }
         }
 
-        TextView tv = (TextView) vue.findViewById(R.id.jour_vote_lay_row_list_tv);
+        TextView tv = vue.findViewById(R.id.jour_vote_lay_row_list_tv);
         tv.setText(current_character.getNom());
 
-        final Spinner sp_vote = (Spinner) vue.findViewById(R.id.jour_vote_lay_row_list_spinner);
+        final Spinner sp_vote = vue.findViewById(R.id.jour_vote_lay_row_list_spinner);
         ArrayAdapter<Character> adapter_choix = new ArrayAdapter<Character>(context, android.R.layout.simple_spinner_item, liste_choix_sub);
         adapter_choix.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 

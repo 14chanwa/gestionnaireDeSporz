@@ -40,7 +40,7 @@ public class Fragment_stats_subgame_hist extends Fragment {
         build_characters_list();
 
         // Copy floating button: sets up copy history function.
-        FloatingActionButton floatingActionButton = (FloatingActionButton) lay_hist.findViewById(R.id.fragment_hist_fab);
+        FloatingActionButton floatingActionButton = lay_hist.findViewById(R.id.fragment_hist_fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +61,7 @@ public class Fragment_stats_subgame_hist extends Fragment {
     private void build_characters_list() {
         DAO_GameHistory dao_gameHistory = new DAO_GameHistory(getActivity());
 
-        tv_hist = (TextView) lay_hist.findViewById(R.id.act_tour_sub_hist_tv);
+        tv_hist = lay_hist.findViewById(R.id.act_tour_sub_hist_tv);
         tv_hist.setText(dao_gameHistory.get_hist(gameKey));
     }
 

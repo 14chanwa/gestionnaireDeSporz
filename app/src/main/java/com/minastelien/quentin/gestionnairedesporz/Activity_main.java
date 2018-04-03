@@ -29,7 +29,7 @@ public abstract class Activity_main extends AppCompatActivity {
      * This method creates the Activity ; it checks if the GameSingleton has already been created. If
      * not, the user is brought to the welcome activity.
      *
-     * @param savedInstanceState
+     * @param savedInstanceState Saved instance state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

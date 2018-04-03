@@ -56,9 +56,9 @@ public abstract class Fragment_gameturn extends Fragment_main {
     public abstract View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
     public void init_layout(View lay_jeu) {
-        tv_endgame_content = (TextView) lay_jeu.findViewById(R.id.act_fin_jeu_tv_contenu);
-        Button but_hist = (Button) lay_jeu.findViewById(R.id.act_fin_jeu_bouton_afficher_hist);
-        Button but_end = (Button) lay_jeu.findViewById(R.id.act_fin_jeu_bouton);
+        tv_endgame_content = lay_jeu.findViewById(R.id.act_fin_jeu_tv_contenu);
+        Button but_hist = lay_jeu.findViewById(R.id.act_fin_jeu_bouton_afficher_hist);
+        Button but_end = lay_jeu.findViewById(R.id.act_fin_jeu_bouton);
 
         but_hist.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +126,7 @@ public abstract class Fragment_gameturn extends Fragment_main {
             // Use the Builder class for convenient dialog construction
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             RelativeLayout lay_diag = (RelativeLayout) RelativeLayout.inflate(getActivity(), R.layout.dialog_endturn, null);
-            TextView tv = (TextView) lay_diag.findViewById(R.id.dialog_fin_tour_tv);
+            TextView tv = lay_diag.findViewById(R.id.dialog_fin_tour_tv);
             tv.setText(dialog_text);
             builder.setView(lay_diag);
             // Create the AlertDialog object and return it
@@ -160,7 +160,7 @@ public abstract class Fragment_gameturn extends Fragment_main {
 
             // Use the Builder class for convenient dialog construction
             RelativeLayout lay_diag = (RelativeLayout) RelativeLayout.inflate(getActivity(), R.layout.dialog_savehist, null);
-            EditText edittext = (EditText) lay_diag.findViewById(R.id.enreg_hist_tv);
+            EditText edittext = lay_diag.findViewById(R.id.enreg_hist_tv);
             edittext.setText(gameSingleton.getCurrent_game().getGame_hist());
             edittext.setFocusableInTouchMode(true);
             edittext.requestFocus();

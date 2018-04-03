@@ -27,7 +27,7 @@ public class Activity_welcome extends Activity_main {
         setContentView(R.layout.activity_welcome);
         setTitle(R.string.app_name);
 
-        Button button = (Button) findViewById(R.id.act_accueil_bn_commencer);
+        Button button = findViewById(R.id.act_accueil_bn_commencer);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,10 +122,10 @@ public class Activity_welcome extends Activity_main {
 
     }
 
-    @Override
     /**
      * Overrides the inherited return method: this is already the welcome activity.
      */
+    @Override
     protected void retour_menu() {
         gameSingleton = Game.getGameSingleton();
     }

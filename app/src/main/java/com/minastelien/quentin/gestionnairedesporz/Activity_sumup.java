@@ -36,12 +36,12 @@ public class Activity_sumup extends Activity_main {
      */
     private void build_sumup() {
         // Initialisation de la liste des personnages
-        sumup_lv = (ListView) lay_glob.findViewById(R.id.sumup_lv);
+        sumup_lv = lay_glob.findViewById(R.id.sumup_lv);
         sumup_adapter = new Adapter_character_sumup(this, gameSingleton.getCurrent_game().getCharacters(), gameSingleton);
         sumup_lv.setAdapter(sumup_adapter);
 
         // Initialisation du bouton
-        sumup_bouton_suiv = (Button) lay_glob.findViewById(R.id.act_sumup_bout_comm);
+        sumup_bouton_suiv = lay_glob.findViewById(R.id.act_sumup_bout_comm);
         sumup_bouton_suiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

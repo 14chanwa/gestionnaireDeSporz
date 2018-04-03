@@ -45,15 +45,15 @@ public class Activity_stats_subgame extends AppCompatActivity {
         }
 
         // Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(timestamp);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // Initilization
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mTabLayout = (TabLayout) findViewById(R.id.activity_stats_sliding_tabs);
+        mViewPager = findViewById(R.id.pager);
+        mTabLayout = findViewById(R.id.activity_stats_sliding_tabs);
 
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             private final String KEY_GAME_KEY = "GAME_KEY";
@@ -133,7 +133,7 @@ public class Activity_stats_subgame extends AppCompatActivity {
         mViewPager.post(new Runnable() {
             @Override
             public void run() {
-                mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         mViewPager.setCurrentItem(tab.getPosition());

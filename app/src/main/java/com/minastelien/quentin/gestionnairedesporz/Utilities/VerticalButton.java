@@ -2,6 +2,7 @@ package com.minastelien.quentin.gestionnairedesporz.Utilities;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.v7.widget.AppCompatButton;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -11,7 +12,7 @@ import android.widget.Button;
  * This is a button with vertical text used in landscape layout for small screens.
  * Created by Quentin on 10/01/2016.
  */
-public class VerticalButton extends Button {
+public class VerticalButton extends AppCompatButton {
     private final boolean topDown;
 
     public VerticalButton(Context context, AttributeSet attrs) {

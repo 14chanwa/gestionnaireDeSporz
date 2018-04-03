@@ -16,7 +16,7 @@ public abstract class DAO_Base {
     private final String FILENAME = "database.db";
 
     SQLiteDatabase mDb = null;
-    private DatabaseHandler mHandler = null;
+    private DatabaseHandler mHandler;
 
     DAO_Base(Context pContext) {
         this.mHandler = new DatabaseHandler(pContext, FILENAME, null, VERSION);

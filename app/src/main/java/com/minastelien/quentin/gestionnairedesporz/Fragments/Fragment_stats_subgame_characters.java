@@ -45,7 +45,7 @@ public class Fragment_stats_subgame_characters extends Fragment {
     private void build_characters_list() {
         DAO_GameHistory dao_gameHistory = new DAO_GameHistory(getActivity());
 
-        ListView lv_stats = (ListView) lay_stats.findViewById(R.id.activity_stats_lv);
+        ListView lv_stats = lay_stats.findViewById(R.id.activity_stats_lv);
         CursorAdapter cursorAdapter = new CursorAdapter(getActivity(), dao_gameHistory.get_characters_list(gameKey), 0) {
             @Override
             public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
@@ -54,13 +54,13 @@ public class Fragment_stats_subgame_characters extends Fragment {
 
             @Override
             public void bindView(View view, Context context, Cursor cursor) {
-                TextView tv_ad_stats_nom = (TextView) view.findViewById(R.id.sumup_item_row_list_nom);
+                TextView tv_ad_stats_nom = view.findViewById(R.id.sumup_item_row_list_nom);
                 tv_ad_stats_nom.setText(cursor.getString(1));
-                TextView tv_ad_stats_role = (TextView) view.findViewById(R.id.sumup_item_row_list_role);
+                TextView tv_ad_stats_role = view.findViewById(R.id.sumup_item_row_list_role);
                 tv_ad_stats_role.setText(cursor.getString(2));
-                TextView tv_ad_stats_gene = (TextView) view.findViewById(R.id.sumup_item_row_list_gene);
+                TextView tv_ad_stats_gene = view.findViewById(R.id.sumup_item_row_list_gene);
                 tv_ad_stats_gene.setText(cursor.getString(3));
-                TextView tv_ad_stats_mutant = (TextView) view.findViewById(R.id.sumup_item_row_list_mutant);
+                TextView tv_ad_stats_mutant = view.findViewById(R.id.sumup_item_row_list_mutant);
                 tv_ad_stats_mutant.setText(cursor.getInt(5) == 0 ? "" : "Mutant");
                 if (cursor.getInt(4) == 1) {
                     tv_ad_stats_nom.setTextColor(context.getResources().getColor(R.color.colorGray));

@@ -56,11 +56,11 @@ public class Fragment_gameturn_day extends Fragment_gameturn {
         FrameLayout lay_global_fragment = (FrameLayout) inflater.inflate(R.layout.fragment_gameturn_day, container, false);
 
         super.init_layout(lay_global_fragment);
-        layout_game = (RelativeLayout) lay_global_fragment.findViewById(R.id.fragment_gameturn_game);
-        layout_endgame = (RelativeLayout) lay_global_fragment.findViewById(R.id.fragment_gameturn_endgame);
+        layout_game = lay_global_fragment.findViewById(R.id.fragment_gameturn_game);
+        layout_endgame = lay_global_fragment.findViewById(R.id.fragment_gameturn_endgame);
 
-        lay_day_vote = (RelativeLayout) lay_global_fragment.findViewById(R.id.act_tour_jour_vote);
-        lay_day_end = (RelativeLayout) lay_global_fragment.findViewById(R.id.act_tour_jour_fin);
+        lay_day_vote = lay_global_fragment.findViewById(R.id.act_tour_jour_vote);
+        lay_day_end = lay_global_fragment.findViewById(R.id.act_tour_jour_fin);
         build_vote();
         build_end();
 
@@ -104,12 +104,12 @@ public class Fragment_gameturn_day extends Fragment_gameturn {
         }
 
         // Initializing living characters list view and adapter
-        ListView lv_day_vote = (ListView) lay_day_vote.findViewById(R.id.act_tour_jour_vote_lv);
+        ListView lv_day_vote = lay_day_vote.findViewById(R.id.act_tour_jour_vote_lv);
         Adapter_character_vote ad_day_vote = new Adapter_character_vote(getActivity(), living_characters, gameSingleton);
         lv_day_vote.setAdapter(ad_day_vote);
 
         // Initializing button listeners
-        Button but_day_vote = (Button) lay_day_vote.findViewById(R.id.act_tour_jour_vote_bout);
+        Button but_day_vote = lay_day_vote.findViewById(R.id.act_tour_jour_vote_bout);
         but_day_vote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,9 +186,9 @@ public class Fragment_gameturn_day extends Fragment_gameturn {
 
     private void build_end() {
 
-        tv_day_end = (TextView) lay_day_end.findViewById(R.id.act_tour_jour_fin_tv);
-        sp_day_end = (Spinner) lay_day_end.findViewById(R.id.act_tour_fin_sp);
-        Button but_day_end = (Button) lay_day_end.findViewById(R.id.act_tour_jour_fin_bout);
+        tv_day_end = lay_day_end.findViewById(R.id.act_tour_jour_fin_tv);
+        sp_day_end = lay_day_end.findViewById(R.id.act_tour_fin_sp);
+        Button but_day_end = lay_day_end.findViewById(R.id.act_tour_jour_fin_bout);
 
         ArrayList<Character> elimination_choices = new ArrayList<>(living_characters);
         elimination_choices.add(gameSingleton.BLANK);
@@ -294,7 +294,7 @@ public class Fragment_gameturn_day extends Fragment_gameturn {
             // Use the Builder class for convenient dialog construction
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             RelativeLayout lay_diag = (RelativeLayout) RelativeLayout.inflate(getActivity(), R.layout.dialog_endturn, null);
-            TextView tv = (TextView) lay_diag.findViewById(R.id.dialog_fin_tour_tv);
+            TextView tv = lay_diag.findViewById(R.id.dialog_fin_tour_tv);
             tv.setText(dialog_text);
             builder.setView(lay_diag);
             builder.setPositiveButton(R.string.bout_suivant, new DialogInterface.OnClickListener() {

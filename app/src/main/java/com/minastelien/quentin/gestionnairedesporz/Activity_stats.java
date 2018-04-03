@@ -30,14 +30,14 @@ public class Activity_stats extends AppCompatActivity {
         setContentView(R.layout.activity_stats);
 
         // Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // Initialization
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mTabLayout = (TabLayout) findViewById(R.id.activity_stats_sliding_tabs);
+        mViewPager = findViewById(R.id.pager);
+        mTabLayout = findViewById(R.id.activity_stats_sliding_tabs);
 
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -107,7 +107,7 @@ public class Activity_stats extends AppCompatActivity {
         mViewPager.post(new Runnable() {
             @Override
             public void run() {
-                mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         mViewPager.setCurrentItem(tab.getPosition());

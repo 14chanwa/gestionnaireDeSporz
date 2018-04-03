@@ -18,8 +18,7 @@ public class Dates {
      * @return Formatted current date as String.
      */
     public static String date() {
-        String date = dateFormat.format(new Date());
-        return date;
+        return dateFormat.format(new Date());
     }
 
     /**
@@ -29,7 +28,6 @@ public class Dates {
      * @return Formatted date as String.
      */
     public static String date_from_unix_time(long unixSeconds) {
-        String date = dateFormat.format(new Date(unixSeconds * 1000L));
-        return date;
+        return dateFormat.format(new Date(unixSeconds * 1000L));
     }
 }

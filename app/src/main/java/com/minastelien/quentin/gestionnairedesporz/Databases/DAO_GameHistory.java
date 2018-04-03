@@ -99,12 +99,12 @@ public class DAO_GameHistory extends DAO_Base {
     public Cursor get_roles_list() {
         open();
         DatabaseHandler.DbSingleton dbSingleton = DatabaseHandler.getDbSingleton();
-        Cursor c = mDb.rawQuery("SELECT " + dbSingleton.ROLE_KEY + ", " +
+        return mDb.rawQuery("SELECT " + dbSingleton.ROLE_KEY + ", " +
                 dbSingleton.ROLE_NOM + ", " +
                 "(CASE WHEN " + dbSingleton.ROLE_CAMP_DEPART_MUTANT + "= 1  THEN \'Mutants\' ELSE \'Astronautes\' END)" + ", " +
                 dbSingleton.ROLE_DESCRIPTION +
                 " FROM " + dbSingleton.ROLE_TABLE_NAME, null);
-        return c;
+
     }
 
     /**
@@ -115,7 +115,7 @@ public class DAO_GameHistory extends DAO_Base {
     public Cursor get_games_list() {
         open();
         DatabaseHandler.DbSingleton dbSingleton = DatabaseHandler.getDbSingleton();
-        Cursor c = mDb.rawQuery("SELECT " +
+        return mDb.rawQuery("SELECT " +
                         dbSingleton.GAME_TABLE_NAME + "." + dbSingleton.GAME_KEY + ", " +
                         dbSingleton.GAME_TIMESTAMP + ", " +
                         " COUNT(*) " + " FROM " + dbSingleton.GAME_TABLE_NAME +
@@ -124,7 +124,6 @@ public class DAO_GameHistory extends DAO_Base {
                         dbSingleton.GAME_TABLE_NAME + "." + dbSingleton.GAME_KEY +
                         " GROUP BY " + dbSingleton.GAME_TABLE_NAME + "." + dbSingleton.GAME_KEY
                 , null);
-        return c;
     }
 
     /**
@@ -136,7 +135,7 @@ public class DAO_GameHistory extends DAO_Base {
     public Cursor get_characters_list(long key) {
         open();
         DatabaseHandler.DbSingleton dbSingleton = DatabaseHandler.getDbSingleton();
-        Cursor c = mDb.rawQuery("SELECT " +
+        return mDb.rawQuery("SELECT " +
                 dbSingleton.CHARACTER_TABLE_NAME + "." + dbSingleton.CHARACTER_KEY + ", " +
                 dbSingleton.CHARACTER_NOM + ", " +
                 dbSingleton.ROLE_NOM + ", " +
@@ -148,7 +147,6 @@ public class DAO_GameHistory extends DAO_Base {
                 " JOIN " + dbSingleton.ROLE_TABLE_NAME + " ON " + dbSingleton.ROLE_TABLE_NAME + "." + dbSingleton.ROLE_KEY + "=" + dbSingleton.CHARACTER_ROLE_FK +
                 " JOIN " + dbSingleton.GENE_TABLE_NAME + " ON " + dbSingleton.GENE_TABLE_NAME + "." + dbSingleton.GENE_KEY + "=" + dbSingleton.CHARACTER_GENE_FK +
                 " WHERE " + dbSingleton.CHARACTER_JEU_FK + "=" + key, null);
-        return c;
     }
 
     /**
@@ -165,8 +163,10 @@ public class DAO_GameHistory extends DAO_Base {
                 " FROM " + dbSingleton.GAME_TABLE_NAME +
                 " WHERE " + dbSingleton.GAME_TABLE_NAME + "." + dbSingleton.GAME_KEY + "=" + key, null);
         if (c.moveToFirst()) {
+            c.close();
             return c.getString(0);
         }
+        c.close();
         return "Pas d'historique";
     }
 

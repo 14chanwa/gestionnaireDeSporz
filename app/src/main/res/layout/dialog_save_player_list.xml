@@ -8,16 +8,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/dialog_list_name"/>
-
     <EditText
         android:id="@+id/save_player_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="none"
-        android:textIsSelectable="true" />
+        android:layout_height="match_parent"
+        android:textIsSelectable="true"
+        android:hint="@string/dialog_list_name"
+        android:inputType="text"/> <!-- [2.05] Fixed bug, keyboard would not appear in lower Android versions -->
 
 </LinearLayout>

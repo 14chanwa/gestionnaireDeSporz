@@ -128,7 +128,7 @@ public class Activity_gameturn_day extends Activity_gameturn {
             // Use the Builder class for convenient dialog construction
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             RelativeLayout lay_diag = (RelativeLayout) RelativeLayout.inflate(getActivity(), R.layout.dialog_endturn, null);
-            TextView tv = (TextView) lay_diag.findViewById(R.id.dialog_fin_tour_tv);
+            TextView tv = lay_diag.findViewById(R.id.dialog_fin_tour_tv);
             tv.setText(dialog_text);
             builder.setView(lay_diag);
             builder.setPositiveButton(R.string.bout_suivant, new DialogInterface.OnClickListener() {

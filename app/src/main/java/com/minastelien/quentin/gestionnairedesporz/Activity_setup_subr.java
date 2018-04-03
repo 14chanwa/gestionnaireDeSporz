@@ -43,12 +43,12 @@ public class Activity_setup_subr extends Activity_main {
      */
     private void build_subr() {
         // Initialisation de la liste des personnages
-        subr_lv = (ListView) subr_lay.findViewById(R.id.act_setup_subr_lv);
+        subr_lv = subr_lay.findViewById(R.id.act_setup_subr_lv);
         subr_adapter = new Adapter_character_setup(this, gameSingleton.getCurrent_game().getCharacters(), gameSingleton);
         subr_lv.setAdapter(subr_adapter);
 
         // Initialisation du bouton
-        subr_bouton_suiv = (Button) subr_lay.findViewById(R.id.act_setup_subr_bout_suiv);
+        subr_bouton_suiv = subr_lay.findViewById(R.id.act_setup_subr_bout_suiv);
         subr_bouton_suiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,20 +117,20 @@ public class Activity_setup_subr extends Activity_main {
         return true;
     }
 
-    @Override
     /**
      * Builds the options menu.
      */
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_roles, menu);
         return true;
     }
 
-    @Override
     /**
      * Builds the options menu with two options; builds the listeners.
      */
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -186,10 +186,10 @@ public class Activity_setup_subr extends Activity_main {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
     /**
      * Checks if the data has changed (typically after roles being distributed).
      */
+    @Override
     public void onResume() {
         super.onResume();
         subr_adapter.notifyDataSetChanged();

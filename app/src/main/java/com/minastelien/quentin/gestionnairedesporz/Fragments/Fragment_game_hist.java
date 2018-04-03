@@ -33,7 +33,7 @@ public class Fragment_game_hist extends Fragment_main {
         build_hist(inflater);
 
         // Copy floating button: sets up copy history function.
-        FloatingActionButton floatingActionButton = (FloatingActionButton) lay_hist.findViewById(R.id.fragment_hist_fab);
+        FloatingActionButton floatingActionButton = lay_hist.findViewById(R.id.fragment_hist_fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,8 +54,8 @@ public class Fragment_game_hist extends Fragment_main {
      */
     protected void build_hist(LayoutInflater inflater) {
         lay_hist = (CoordinatorLayout) inflater.inflate(R.layout.fragment_hist, null);
-        scrollview_hist = (ScrollView) lay_hist.findViewById(R.id.act_tour_sub_hist_scrollview);
-        tv_hist = (TextView) lay_hist.findViewById(R.id.act_tour_sub_hist_tv);
+        scrollview_hist = lay_hist.findViewById(R.id.act_tour_sub_hist_scrollview);
+        tv_hist = lay_hist.findViewById(R.id.act_tour_sub_hist_tv);
         update_hist();
     }
 

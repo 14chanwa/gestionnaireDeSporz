@@ -30,9 +30,9 @@ public class Adapter_character_setup extends Adapter_character {
 
         final Character current_character = characters.get(position);
 
-        TextView tv = (TextView) view.findViewById(R.id.lay_row_list_tv);
-        final Spinner sp_role = (Spinner) view.findViewById(R.id.lay_row_list_spinner_role);
-        final Spinner sp_gene = (Spinner) view.findViewById(R.id.lay_row_list_spinner_gene);
+        TextView tv = view.findViewById(R.id.lay_row_list_tv);
+        final Spinner sp_role = view.findViewById(R.id.lay_row_list_spinner_role);
+        final Spinner sp_gene = view.findViewById(R.id.lay_row_list_spinner_gene);
 
         tv.setText(current_character.getNom());
 

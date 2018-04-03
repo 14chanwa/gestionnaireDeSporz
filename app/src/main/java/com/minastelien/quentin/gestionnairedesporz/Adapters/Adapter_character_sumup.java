@@ -25,10 +25,10 @@ public class Adapter_character_sumup extends Adapter_character {
 
         final Character current_character = characters.get(position);
 
-        TextView tv_nom = (TextView) vue.findViewById(R.id.sumup_item_row_list_nom);
-        TextView tv_role = (TextView) vue.findViewById(R.id.sumup_item_row_list_role);
-        TextView tv_gene = (TextView) vue.findViewById(R.id.sumup_item_row_list_gene);
-        TextView tv_mutant = (TextView) vue.findViewById(R.id.sumup_item_row_list_mutant);
+        TextView tv_nom = vue.findViewById(R.id.sumup_item_row_list_nom);
+        TextView tv_role = vue.findViewById(R.id.sumup_item_row_list_role);
+        TextView tv_gene = vue.findViewById(R.id.sumup_item_row_list_gene);
+        TextView tv_mutant = vue.findViewById(R.id.sumup_item_row_list_mutant);
 
         if (current_character.isMort()) {
             tv_nom.setTextColor(context.getResources().getColor(R.color.colorGray));

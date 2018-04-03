@@ -12,6 +12,7 @@ import com.minastelien.quentin.gestionnairedesporz.Adapters.Adapter_role_dist;
 import com.minastelien.quentin.gestionnairedesporz.Game.Character;
 import com.minastelien.quentin.gestionnairedesporz.Game.Role;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -27,10 +28,10 @@ public class Activity_setup_subr_dist extends Activity_main {
     private TextView tv_resistants;
     private TextView tv_hotes;
 
-    @Override
     /**
      * Builds a menu for the game master to tweak settings. Generates a role distribution.
      */
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -43,13 +44,13 @@ public class Activity_setup_subr_dist extends Activity_main {
 
         RelativeLayout layout = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_setup_subr_dist, null);
 
-        TextView textView = (TextView) layout.findViewById(R.id.dialog_distrib_pers_tv);
+        TextView textView = layout.findViewById(R.id.dialog_distrib_pers_tv);
         String phrase = "Nombre de joueurs : " + gameSingleton.getCurrent_game().getCharacters().size();
         textView.setText(phrase);
 
         // Initialisation ligne hotes
-        tv_hotes = (TextView) layout.findViewById(R.id.dialog_distrib_pers_hotes_tv);
-        Button button_left_hotes = (Button) layout.findViewById(R.id.dialog_distrib_pers_hotes_but_left);
+        tv_hotes = layout.findViewById(R.id.dialog_distrib_pers_hotes_tv);
+        Button button_left_hotes = layout.findViewById(R.id.dialog_distrib_pers_hotes_but_left);
         button_left_hotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +65,7 @@ public class Activity_setup_subr_dist extends Activity_main {
                 }
             }
         });
-        Button button_right_hotes = (Button) layout.findViewById(R.id.dialog_distrib_pers_hotes_but_right);
+        Button button_right_hotes = layout.findViewById(R.id.dialog_distrib_pers_hotes_but_right);
         button_right_hotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,8 +80,8 @@ public class Activity_setup_subr_dist extends Activity_main {
         });
 
         // Initialisation ligne resistants
-        tv_resistants = (TextView) layout.findViewById(R.id.dialog_distrib_pers_resistants_tv);
-        Button button_left_resistants = (Button) layout.findViewById(R.id.dialog_distrib_pers_resistants_but_left);
+        tv_resistants = layout.findViewById(R.id.dialog_distrib_pers_resistants_tv);
+        Button button_left_resistants = layout.findViewById(R.id.dialog_distrib_pers_resistants_but_left);
         button_left_resistants.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +96,7 @@ public class Activity_setup_subr_dist extends Activity_main {
                 }
             }
         });
-        Button button_right_resistants = (Button) layout.findViewById(R.id.dialog_distrib_pers_resistants_but_right);
+        Button button_right_resistants = layout.findViewById(R.id.dialog_distrib_pers_resistants_but_right);
         button_right_resistants.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,12 +111,12 @@ public class Activity_setup_subr_dist extends Activity_main {
         });
 
         // Initialisaton lv roles
-        ListView dist_lv = (ListView) layout.findViewById(R.id.dialog_distrib_lv);
+        ListView dist_lv = layout.findViewById(R.id.dialog_distrib_lv);
         dist_adapter = new Adapter_role_dist(this, R.layout.adapter_dist_roles, roles_a_choisir, gameSingleton);
         dist_lv.setAdapter(dist_adapter);
 
         // Initialisation boutons
-        Button bouton_annuler = (Button) layout.findViewById(R.id.activity_setup_subr_dist_bout_annuler);
+        Button bouton_annuler = layout.findViewById(R.id.activity_setup_subr_dist_bout_annuler);
         bouton_annuler.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,13 +124,11 @@ public class Activity_setup_subr_dist extends Activity_main {
             }
         });
 
-        Button bouton_suivant = (Button) layout.findViewById(R.id.activity_setup_subr_dist_bout_suivant);
+        Button bouton_suivant = layout.findViewById(R.id.activity_setup_subr_dist_bout_suivant);
         bouton_suivant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Role> roles_choisis = new ArrayList<Role>();
-
-                roles_choisis.addAll(dist_adapter.getChoix());
+                ArrayList<Role> roles_choisis = new ArrayList<Role>(dist_adapter.getChoix());
 
                 if (roles_choisis.size() > gameSingleton.getCurrent_game().getCharacters().size()) {
                     Toast.makeText(getApplicationContext(), "ERREUR : il y a " + roles_choisis.size() + " roles et " + gameSingleton.getCurrent_game().getCharacters().size() + " joueurs  !", Toast.LENGTH_SHORT).show();
@@ -142,7 +141,8 @@ public class Activity_setup_subr_dist extends Activity_main {
                      */
 
                     // Ajoute autant de simples astronautes que nécessaire
-                    for (int i = 0; i < gameSingleton.getCurrent_game().getCharacters().size() - roles_choisis.size(); i++) {
+                    // [versionCode 15 versionName 2.05] Fixed fatal bug ("+1" below)
+                    for (int i = 0; i < gameSingleton.getCurrent_game().getCharacters().size() + 1 - roles_choisis.size(); i++) {
                         roles_choisis.add(gameSingleton.SIMPLE_ASTRONAUTE);
                     }
 
@@ -165,7 +165,7 @@ public class Activity_setup_subr_dist extends Activity_main {
                         }
                     }
 
-                    ArrayList<Character> liste_pers_pour_genomes = (ArrayList) gameSingleton.getCurrent_game().getCharacters().clone();
+                    ArrayList<Character> liste_pers_pour_genomes = new ArrayList<>(gameSingleton.getCurrent_game().getCharacters());
                     Collections.shuffle(liste_pers_pour_genomes);
 
                     int max_hotes = Integer.parseInt(tv_hotes.getText().toString());

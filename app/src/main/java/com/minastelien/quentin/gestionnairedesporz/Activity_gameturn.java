@@ -78,7 +78,7 @@ public abstract class Activity_gameturn extends Activity_main {
             setContentView(layout_principal);
 
             // The following returns NullPointerException if no ViewPager is found.
-            layout_viewpager = (ViewPager) layout_principal.findViewById(R.id.activity_tour_vp);
+            layout_viewpager = layout_principal.findViewById(R.id.activity_tour_vp);
 
             layout_viewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
 
@@ -140,7 +140,7 @@ public abstract class Activity_gameturn extends Activity_main {
             layout_viewpager.setOffscreenPageLimit(2);
 
             // Tabs setup
-            tabLayout = (TabLayout) layout_principal.findViewById(R.id.activity_gameturn_sliding_tabs);
+            tabLayout = layout_principal.findViewById(R.id.activity_gameturn_sliding_tabs);
 
             // Adding tabs and tabs names.
             tabLayout.post(new Runnable() {
@@ -195,7 +195,7 @@ public abstract class Activity_gameturn extends Activity_main {
             tabLayout.post(new Runnable() {
                 @Override
                 public void run() {
-                    tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
                         /**
                          * Makes the ViewPager switch to the tab's position.
@@ -237,7 +237,7 @@ public abstract class Activity_gameturn extends Activity_main {
 
             // The landscape layout implements a toolbar (contrary to the ViewPager one).
             // Toolbar
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
 
@@ -275,7 +275,7 @@ public abstract class Activity_gameturn extends Activity_main {
     /**
      * [2.03] Gets the game fragment without releasing it.
      *
-     * @return
+     * @return Fragment (not released)
      */
     public Fragment_gameturn getFragment_game() {
         return fragment_game;

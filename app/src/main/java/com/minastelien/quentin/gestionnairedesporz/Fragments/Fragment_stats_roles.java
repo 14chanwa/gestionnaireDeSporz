@@ -36,7 +36,7 @@ public class Fragment_stats_roles extends Fragment {
     private void build_role_list() {
         DAO_GameHistory dao_gameHistory = new DAO_GameHistory(getActivity());
 
-        ListView lv_stats = (ListView) lay_stats.findViewById(R.id.activity_stats_lv);
+        ListView lv_stats = lay_stats.findViewById(R.id.activity_stats_lv);
         CursorAdapter cursorAdapter = new CursorAdapter(getActivity(), dao_gameHistory.get_roles_list(), 0) {
             @Override
             public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
@@ -45,11 +45,11 @@ public class Fragment_stats_roles extends Fragment {
 
             @Override
             public void bindView(View view, Context context, Cursor cursor) {
-                TextView tv_ad_stats = (TextView) view.findViewById(R.id.adapter_stats_roles_tv_left);
+                TextView tv_ad_stats = view.findViewById(R.id.adapter_stats_roles_tv_left);
                 tv_ad_stats.setText(cursor.getString(1));
-                TextView tv_ad_stats_camp = (TextView) view.findViewById(R.id.adapter_stats_roles_tv_right);
+                TextView tv_ad_stats_camp = view.findViewById(R.id.adapter_stats_roles_tv_right);
                 tv_ad_stats_camp.setText(cursor.getString(2));
-                TextView tv_ad_stats_desc = (TextView) view.findViewById(R.id.adapter_stats_roles_tv_bottom);
+                TextView tv_ad_stats_desc = view.findViewById(R.id.adapter_stats_roles_tv_bottom);
                 tv_ad_stats_desc.setText(cursor.getString(3).replace("\n", " "));
             }
         };

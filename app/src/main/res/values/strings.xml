@@ -3,12 +3,8 @@
     <string name="app_name_short">"MT Sporz"</string>
 
     <string name="menu_accueil_stats">"Statistiques"</string>
-    <string name="menu_accueil_options">"Options"</string>
     <string name="menu_accueil_demo">"Lancer la démo"</string>
     <string name="menu_accueil_jeu_test">"Voulez-vous lancer un jeu de test ?"</string>
-
-    <string name="menu_about">"A propos"</string>
-    <string name="menu_about_text">"Développé par 14chanwa\nN'hésitez pas à prendre contact pour tout bug ! :)"</string>
 
     <string name="menu_players_save">"Sauvegarder la liste"</string>
     <string name="menu_players_load">"Charger une liste"</string>
@@ -32,9 +28,6 @@
     <string name="act_setup_nombre_noms">"Nombre de noms ajoutés : "</string>
     <string name="act_setup_choix_roles">"Choisissez les rôles : "</string>
 
-    <string name="act_tour_draw_jeu">"Jeu"</string>
-    <string name="act_tour_draw_sumup">"Afficher/modifier joueurs"</string>
-    <string name="act_tour_draw_hist">"Résumé du jeu"</string>
     <string name="act_tour_nuit">"Nuit"</string>
     <string name="act_tour_jour">"Jour"</string>
 
@@ -42,19 +35,7 @@
 
     <string name="bout_suivant">"Suivant"</string>
     <string name="bout_commencer">"Commencer le jeu"</string>
-    <string name="bout_valider">"Valider"</string>
     <string name="bout_annuler">"Annuler"</string>
-
-    <string name="role_mutant">"Mutant"</string>
-    <string name="role_medecin">"Médecin"</string>
-    <string name="role_informaticien">"Informaticien"</string>
-    <string name="role_psychologue">"Psychologue"</string>
-    <string name="role_geneticien">"Généticien"</string>
-    <string name="role_politicien">"Politicien"</string>
-    <string name="role_hacker">"Hacker"</string>
-    <string name="role_apprenti_hacker">"Apprenti hacker"</string>
-    <string name="role_espion">"Espion"</string>
-    <string name="role_peintre">"Peintre"</string>
 
     <string name="texte_mutant">"Les mutants se réveillent et choisissent une personne à muter ou une personne à tuer..."</string>
     <string name="texte_medecin">"Les médecins se réveillent et choisissent une personne à soigner chacun ou une personne à tuer ensemble..."</string>
@@ -68,13 +49,6 @@
     <string name="texte_peintre">"Le peintre se réveille et désigne une personne qu'il veut marquer..."</string>
     <string name="texte_default">"Ce personnage ne joue pas la nuit !"</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_activity_setup">Activity_setup</string>
-    <string name="title_activity_fin_jeu">"Fin du jeu"</string>
-
     <string name="yes">"Oui"</string>
     <string name="no">"Non"</string>
     <string name="cancel">"Annuler"</string>
@@ -86,27 +60,10 @@
     <string name="paralyse">"Paralysé"</string>
     <string name="sumup">"Résumé"</string>
 
-    <string name="day">"Jour"</string>
-    <string name="night">"Nuit"</string>
-
     <string name="warning_quitter">"Êtes-vous sûr de quitter ?"</string>
     <string name="warning_finir_votes">"Avez-vous terminé les votes ?"</string>
 
     <string name="listview_legends_time_date">"Date et heure"</string>
     <string name="listview_legends_character_count">"Nombre de personnages"</string>
-    <string name="listview_legends_role_name">"Nom du rôle"</string>
-    <string name="listview_legends_camp">"Affiliation"</string>
 
-    <string name="role_desc_mutant_de_base">"Chaque nuit les mutants vont désigner un joueur à muter. Ce joueur est transformé en mutant.\n Ils désignent aussi une personne à paralyser, c'est à dire une personne qui n'aura pas la possibilité de jouer son action cette nuit, mais agira normalement par la suite."</string>
-    <string name="role_desc_medecin">"Chaque nuit les médecins agissent s'ils n'ont pas été mutés ou paralysés.\n Chacun peut soigner un autre joueur. \nSi on est mutant et qu'on se fait soigner, alors on redevient sain. Sinon rien ne se passe.\n Le mutant originel ne peut jamais être soigné."</string>
-    <string name="role_desc_informaticien">"Chaque nuit l'ordinateur de bord indique à l'Informaticien le nombre exact de mutants à bord."</string>
-    <string name="role_desc_psychologue">"Chaque nuit le Psychologue désigne un joueur. Il apprend si sa cible est mutante ou non (mais ne connait pas son rôle)."</string>
-    <string name="role_desc_espion">"Chaque nuit l'Espion désigne un joueur. Il apprend si sa cible a oui ou non été mutée, paralysée, soignée, ou inspectée par le psychologue cette nuit (le meneur fait oui ou non de la tête à chaque fois pour que seul l'Espion sache exactement ce qu'il est arrivé à sa cible cette nuit)."</string>
-    <string name="role_desc_simple_astronaute">"L'Astronaute garde les yeux fermés toute la nuit.\n N'étant pas indispensable, il peut donc prendre plus de risques en journée lorsqu'il bluffe.\n De plus, lorsqu'il se fait paralyser il a la garantie que TOUS les autres joueurs ont pu agir : en servant de paratonnerre il fait avancer la cause de son camp."</string>
-    <string name="role_desc_fanatique">"Le Fanatique n'a pas de pouvoir spécial, mais il gagne la partie si les mutants gagnent."</string>
-    <string name="role_desc_geneticien">"Chaque nuit le Généticien désigne un joueur. Il apprend si sa cible est de génôme Résistant, Hôte, ou Standard.\n Le Résistant ne peut jamais être muté.\n Les Hôtes ne peuvent jamais êtes soignés.\n Les joueurs de génômes Standard peuvent être mutés ou soigner normalement."</string>
-    <string name="role_desc_hacker">"Chaque nuit le Hacker peut "pirater" les fichiers d'un rôle donné.\n Il a le choix entre Informaticien, Psychologue, Généticien, Espion.\n Il reçoit une partie de l'information de la nuit correspondante.\n Par exemple s'il choisit Informaticien, il sait combien l'Informaticien a vu de mutants cette nuit.\n S'il choisit Psychologue (respectivement Généticien ou Espion) il sait QUI a été inspecté par le Psychologue (respectivement le Généticen ou l'Espion)."</string>
-    <string name="role_desc_apprenti_hacker">"Chaque nuit l'Apprenti Hacker peutt "pirater" les fichiers d'un rôle donné.\n Il a le choix entre Informaticien, Psychologue, Généticien, Espion.\n Il reçoit une partie de l'information de la nuit correspondante.\n Par exemple s'il choisit Informaticien, il sait combien l'Informaticien a vu de mutants cette nuit.\n S'il choisit Psychologue (respectivement Généticien ou Espion) il sait le résultat qui a été découvert par le Psychologue (respectivement le Généticen ou l'Espion)."</string>
-    <string name="role_desc_politicien">"Chaque nuit, le Politicien désigne un joueur et apprend contre qui ce joueur a voté pendant la journée précédente. Il ne se réveille pas la première nuit."</string>
-    <string name="role_desc_peintre">"Chaque nuit, le Peintre désigne un joueur et dépose de la peinture sur sa porte. Il peut retracer toutes les personnes ayant été en contact d'une manière ou d'une autre avec ce joueur."</string>
 </resources>

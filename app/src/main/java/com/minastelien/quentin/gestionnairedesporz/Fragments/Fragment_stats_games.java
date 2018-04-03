@@ -42,7 +42,7 @@ public class Fragment_stats_games extends Fragment {
     private void build_games_list() {
         final DAO_GameHistory dao_gameHistory = new DAO_GameHistory(getActivity());
 
-        ListView lv_stats = (ListView) lay_stats.findViewById(R.id.activity_stats_lv);
+        ListView lv_stats = lay_stats.findViewById(R.id.activity_stats_lv);
         CursorAdapter cursorAdapter = new CursorAdapter(getActivity(), dao_gameHistory.get_games_list(), 0) {
             @Override
             public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
@@ -51,9 +51,9 @@ public class Fragment_stats_games extends Fragment {
 
             @Override
             public void bindView(View view, Context context, Cursor cursor) {
-                TextView tv_ad_stats = (TextView) view.findViewById(R.id.adapter_stats_roles_tv_left);
+                TextView tv_ad_stats = view.findViewById(R.id.adapter_stats_roles_tv_left);
                 tv_ad_stats.setText(Dates.date_from_unix_time(cursor.getLong(1)));
-                TextView tv_ad_stats_count = (TextView) view.findViewById(R.id.adapter_stats_roles_tv_right);
+                TextView tv_ad_stats_count = view.findViewById(R.id.adapter_stats_roles_tv_right);
                 tv_ad_stats_count.setText(cursor.getInt(2) + "");
             }
         };
@@ -77,8 +77,8 @@ public class Fragment_stats_games extends Fragment {
 
 
         // Legends
-        TextView tv_leg_left = (TextView) lay_stats.findViewById(R.id.activity_stats_tv_leg_left);
-        TextView tv_leg_right = (TextView) lay_stats.findViewById(R.id.activity_stats_tv_leg_right);
+        TextView tv_leg_left = lay_stats.findViewById(R.id.activity_stats_tv_leg_left);
+        TextView tv_leg_right = lay_stats.findViewById(R.id.activity_stats_tv_leg_right);
         tv_leg_left.setText(R.string.listview_legends_time_date);
         tv_leg_right.setText(R.string.listview_legends_character_count);
     }

@@ -34,7 +34,7 @@ public abstract class Adapter_character extends ArrayAdapter<Character> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        RelativeLayout view = null;
+        RelativeLayout view;
         // If this is a recycled view, it already contains the right layout.
         if (convertView != null) {
             // Get the view.

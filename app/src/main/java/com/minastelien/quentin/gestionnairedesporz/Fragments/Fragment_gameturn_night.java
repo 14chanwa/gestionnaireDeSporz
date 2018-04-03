@@ -58,11 +58,11 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         FrameLayout frag_glob = (FrameLayout) inflater.inflate(R.layout.fragment_gameturn_night, container, false);
 
         super.init_layout(frag_glob);
-        layout_game = (RelativeLayout) frag_glob.findViewById(R.id.fragment_gameturn_game);
-        layout_endgame = (RelativeLayout) frag_glob.findViewById(R.id.fragment_gameturn_endgame);
+        layout_game = frag_glob.findViewById(R.id.fragment_gameturn_game);
+        layout_endgame = frag_glob.findViewById(R.id.fragment_gameturn_endgame);
 
-        lay_role_night = (RelativeLayout) frag_glob.findViewById(R.id.act_tour_nuit_role_layout);
-        but_next = (Button) frag_glob.findViewById(R.id.act_tour_nuit_bouton_suivant);
+        lay_role_night = frag_glob.findViewById(R.id.act_tour_nuit_role_layout);
+        but_next = frag_glob.findViewById(R.id.act_tour_nuit_bouton_suivant);
 
         if (savedInstanceState != null) {
             current_role_index = savedInstanceState.getInt(KEY_CURRENT_ROLE);
@@ -190,11 +190,11 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         RelativeLayout mutant_layout = (RelativeLayout) RelativeLayout.inflate(getActivity(), gameSingleton.MUTANT_DE_BASE.getLayout_id(), null);
         lay_role_night.addView(mutant_layout);
 
-        TextView mutant_tv = (TextView) mutant_layout.findViewById(R.id.role_mutant_textview);
-        final Spinner mutant_sp = (Spinner) mutant_layout.findViewById(R.id.role_mutant_spinner);
-        final Spinner mutant_sp_paralyse = (Spinner) mutant_layout.findViewById(R.id.role_mutant_spinner_paralyse);
+        TextView mutant_tv = mutant_layout.findViewById(R.id.role_mutant_textview);
+        final Spinner mutant_sp = mutant_layout.findViewById(R.id.role_mutant_spinner);
+        final Spinner mutant_sp_paralyse = mutant_layout.findViewById(R.id.role_mutant_spinner_paralyse);
 
-        final RadioButton mutant_bouton_muter = (RadioButton) mutant_layout.findViewById(R.id.role_mutant_radiobutton_muter);
+        final RadioButton mutant_bouton_muter = mutant_layout.findViewById(R.id.role_mutant_radiobutton_muter);
         mutant_bouton_muter.setChecked(true);
 
         // Les personnes pas encore contaminées et les contaminés
@@ -316,15 +316,15 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         RelativeLayout medecin_layout = (RelativeLayout) RelativeLayout.inflate(getActivity(), gameSingleton.MEDECIN.getLayout_id(), null);
         lay_role_night.addView(medecin_layout);
 
-        TextView medecin_tv = (TextView) medecin_layout.findViewById(R.id.role_medecin_textview);
-        final RadioButton medecin_bouton_soigner = (RadioButton) medecin_layout.findViewById(R.id.role_medecin_radiobutton_soigner);
-        RadioButton medecin_bouton_tuer = (RadioButton) medecin_layout.findViewById(R.id.role_medecin_radiobutton_tuer);
-        final RelativeLayout layout_soigner = (RelativeLayout) medecin_layout.findViewById(R.id.role_medecin_frame_soigner);
-        final RelativeLayout layout_tuer = (RelativeLayout) medecin_layout.findViewById(R.id.role_medecin_frame_tuer);
+        TextView medecin_tv = medecin_layout.findViewById(R.id.role_medecin_textview);
+        final RadioButton medecin_bouton_soigner = medecin_layout.findViewById(R.id.role_medecin_radiobutton_soigner);
+        RadioButton medecin_bouton_tuer = medecin_layout.findViewById(R.id.role_medecin_radiobutton_tuer);
+        final RelativeLayout layout_soigner = medecin_layout.findViewById(R.id.role_medecin_frame_soigner);
+        final RelativeLayout layout_tuer = medecin_layout.findViewById(R.id.role_medecin_frame_tuer);
 
-        final Spinner spinner_soigner_1 = (Spinner) medecin_layout.findViewById(R.id.role_medecin_soigner_spinner1);
-        final Spinner spinner_soigner_2 = (Spinner) medecin_layout.findViewById(R.id.role_medecin_soigner_spinner2);
-        final Spinner spinner_tuer = (Spinner) medecin_layout.findViewById(R.id.role_medecin_tuer_spinner);
+        final Spinner spinner_soigner_1 = medecin_layout.findViewById(R.id.role_medecin_soigner_spinner1);
+        final Spinner spinner_soigner_2 = medecin_layout.findViewById(R.id.role_medecin_soigner_spinner2);
+        final Spinner spinner_tuer = medecin_layout.findViewById(R.id.role_medecin_tuer_spinner);
 
         String texte = "\n";
         final Set<Character> set_medecins_vivants = new HashSet<Character>();
@@ -479,7 +479,7 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         RelativeLayout informaticien_layout = (RelativeLayout) RelativeLayout.inflate(getActivity(), gameSingleton.INFORMATICIEN.getLayout_id(), null);
         lay_role_night.addView(informaticien_layout);
 
-        TextView informaticien_tv_desc = (TextView) informaticien_layout.findViewById(R.id.fragment_role_textonly_tv);
+        TextView informaticien_tv_desc = informaticien_layout.findViewById(R.id.fragment_role_textonly_tv);
 
         // Qui est l'informaticien ?
         Character pers_tmp = gameSingleton.BLANK;
@@ -521,10 +521,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         RelativeLayout psychologue_layout = (RelativeLayout) RelativeLayout.inflate(getActivity(), gameSingleton.PSYCHOLOGUE.getLayout_id(), null);
         lay_role_night.addView(psychologue_layout);
 
-        TextView psychlogue_tv_desc = (TextView) psychologue_layout.findViewById(R.id.role_simple_tv_desc);
-        final TextView psychologue_tv_resultat = (TextView) psychologue_layout.findViewById(R.id.role_simple_tv_resultat);
+        TextView psychlogue_tv_desc = psychologue_layout.findViewById(R.id.role_simple_tv_desc);
+        final TextView psychologue_tv_resultat = psychologue_layout.findViewById(R.id.role_simple_tv_resultat);
 
-        final Spinner psychologue_spinner = (Spinner) psychologue_layout.findViewById(R.id.role_simple_spinner);
+        final Spinner psychologue_spinner = psychologue_layout.findViewById(R.id.role_simple_spinner);
 
         // Qui est le psychologue ?
         Character pers_tmp = gameSingleton.BLANK;
@@ -588,10 +588,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         RelativeLayout geneticien_layout = (RelativeLayout) RelativeLayout.inflate(getActivity(), gameSingleton.GENETICIEN.getLayout_id(), null);
         lay_role_night.addView(geneticien_layout);
 
-        TextView geneticien_tv_desc = (TextView) geneticien_layout.findViewById(R.id.role_simple_tv_desc);
-        final TextView geneticien_tv_resultat = (TextView) geneticien_layout.findViewById(R.id.role_simple_tv_resultat);
+        TextView geneticien_tv_desc = geneticien_layout.findViewById(R.id.role_simple_tv_desc);
+        final TextView geneticien_tv_resultat = geneticien_layout.findViewById(R.id.role_simple_tv_resultat);
 
-        final Spinner geneticien_spinner = (Spinner) geneticien_layout.findViewById(R.id.role_simple_spinner);
+        final Spinner geneticien_spinner = geneticien_layout.findViewById(R.id.role_simple_spinner);
 
         // Qui est le généticien ?
         Character pers_tmp = gameSingleton.BLANK;
@@ -650,9 +650,9 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         RelativeLayout politicien_layout = (RelativeLayout) RelativeLayout.inflate(getActivity(), gameSingleton.POLITICIEN.getLayout_id(), null);
         lay_role_night.addView(politicien_layout);
 
-        final TextView politicien_tv_desc = (TextView) politicien_layout.findViewById(R.id.role_simple_tv_desc);
-        final TextView politicien_tv_resultat = (TextView) politicien_layout.findViewById(R.id.role_simple_tv_resultat);
-        final Spinner politicien_spinner = (Spinner) politicien_layout.findViewById(R.id.role_simple_spinner);
+        final TextView politicien_tv_desc = politicien_layout.findViewById(R.id.role_simple_tv_desc);
+        final TextView politicien_tv_resultat = politicien_layout.findViewById(R.id.role_simple_tv_resultat);
+        final Spinner politicien_spinner = politicien_layout.findViewById(R.id.role_simple_spinner);
 
         // Qui est le politicien ?
         Character pers_tmp = gameSingleton.BLANK;
@@ -738,10 +738,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         RelativeLayout hacker_layout = (RelativeLayout) RelativeLayout.inflate(getActivity(), gameSingleton.HACKER.getLayout_id(), null);
         lay_role_night.addView(hacker_layout);
 
-        TextView hacker_tv_desc = (TextView) hacker_layout.findViewById(R.id.role_simple_tv_desc);
-        final TextView hacker_tv_resultat = (TextView) hacker_layout.findViewById(R.id.role_simple_tv_resultat);
+        TextView hacker_tv_desc = hacker_layout.findViewById(R.id.role_simple_tv_desc);
+        final TextView hacker_tv_resultat = hacker_layout.findViewById(R.id.role_simple_tv_resultat);
 
-        final Spinner hacker_spinner = (Spinner) hacker_layout.findViewById(R.id.role_simple_spinner);
+        final Spinner hacker_spinner = hacker_layout.findViewById(R.id.role_simple_spinner);
 
         // Qui est le hacker ?
         Character pers_tmp = gameSingleton.BLANK;
@@ -867,11 +867,11 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         RelativeLayout apprenti_hacker_layout = (RelativeLayout) RelativeLayout.inflate(getActivity(), gameSingleton.APPRENTI_HACKER.getLayout_id(), null);
         lay_role_night.addView(apprenti_hacker_layout);
 
-        TextView apprenti_hacker_tv_desc = (TextView) apprenti_hacker_layout.findViewById(R.id.role_simple_tv_desc);
+        TextView apprenti_hacker_tv_desc = apprenti_hacker_layout.findViewById(R.id.role_simple_tv_desc);
 
-        final TextView apprenti_hacker_tv_resultat = (TextView) apprenti_hacker_layout.findViewById(R.id.role_simple_tv_resultat);
+        final TextView apprenti_hacker_tv_resultat = apprenti_hacker_layout.findViewById(R.id.role_simple_tv_resultat);
 
-        final Spinner apprenti_hacker_spinner = (Spinner) apprenti_hacker_layout.findViewById(R.id.role_simple_spinner);
+        final Spinner apprenti_hacker_spinner = apprenti_hacker_layout.findViewById(R.id.role_simple_spinner);
 
         // Qui est l'apprenti hacker ?
         Character pers_tmp = gameSingleton.BLANK;
@@ -997,10 +997,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         RelativeLayout espion_layout = (RelativeLayout) RelativeLayout.inflate(getActivity(), gameSingleton.ESPION.getLayout_id(), null);
         lay_role_night.addView(espion_layout);
 
-        TextView espion_tv_desc = (TextView) espion_layout.findViewById(R.id.role_simple_tv_desc);
-        final TextView espion_tv_resultat = (TextView) espion_layout.findViewById(R.id.role_simple_tv_resultat);
+        TextView espion_tv_desc = espion_layout.findViewById(R.id.role_simple_tv_desc);
+        final TextView espion_tv_resultat = espion_layout.findViewById(R.id.role_simple_tv_resultat);
 
-        final Spinner espion_spinner = (Spinner) espion_layout.findViewById(R.id.role_simple_spinner);
+        final Spinner espion_spinner = espion_layout.findViewById(R.id.role_simple_spinner);
 
         // Qui est l'espion ?
         Character pers_tmp = gameSingleton.BLANK;
@@ -1085,10 +1085,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         RelativeLayout peintre_layout = (RelativeLayout) RelativeLayout.inflate(getActivity(), gameSingleton.PEINTRE.getLayout_id(), null);
         lay_role_night.addView(peintre_layout);
 
-        TextView peintre_tv_desc = (TextView) peintre_layout.findViewById(R.id.role_simple_tv_desc);
-        final TextView peintre_tv_resultat = (TextView) peintre_layout.findViewById(R.id.role_simple_tv_resultat);
+        TextView peintre_tv_desc = peintre_layout.findViewById(R.id.role_simple_tv_desc);
+        final TextView peintre_tv_resultat = peintre_layout.findViewById(R.id.role_simple_tv_resultat);
 
-        final Spinner peintre_spinner = (Spinner) peintre_layout.findViewById(R.id.role_simple_spinner);
+        final Spinner peintre_spinner = peintre_layout.findViewById(R.id.role_simple_spinner);
 
         // Qui est le peintre ?
         // Le peintre est dans la liste de ses choix
@@ -1112,7 +1112,7 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Character selected_character = gameSingleton.personnages_vivants_debut_tour.get(position);
-                String resultat = "";
+                String resultat;
                 if (gameSingleton.visites_tour_nuit.get(selected_character) != null) {
                     resultat = "Voici la liste des personnages ayant visité " + selected_character.getNom() + " :\n\n";
                     for (Character p : gameSingleton.visites_tour_nuit.get(selected_character)) {
@@ -1359,7 +1359,7 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
             // Use the Builder class for convenient dialog construction
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             RelativeLayout lay_diag = (RelativeLayout) RelativeLayout.inflate(getActivity(), R.layout.dialog_endturn, null);
-            TextView tv = (TextView) lay_diag.findViewById(R.id.dialog_fin_tour_tv);
+            TextView tv = lay_diag.findViewById(R.id.dialog_fin_tour_tv);
             tv.setText(dialog_text);
             builder.setView(lay_diag);
             builder.setPositiveButton(R.string.bout_suivant, new DialogInterface.OnClickListener() {

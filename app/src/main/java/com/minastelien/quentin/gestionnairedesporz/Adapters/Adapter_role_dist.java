@@ -43,7 +43,7 @@ public class Adapter_role_dist extends ArrayAdapter<Role> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        RelativeLayout view = null;
+        RelativeLayout view;
         // If this is a recycled view, it already contains the right layout.
         if (convertView != null) {
             // Get the view.
@@ -53,11 +53,11 @@ public class Adapter_role_dist extends ArrayAdapter<Role> {
             view = (RelativeLayout) RelativeLayout.inflate(context, R.layout.adapter_dist_roles, null);
         }
 
-        final RelativeLayout layout_sub = (RelativeLayout) view.findViewById(R.id.adapter_dist_roles_relatlayout);
-        final CheckBox checkbox = (CheckBox) view.findViewById(R.id.adapter_dist_roles_checkbox);
-        final TextView layout_sub_edittext = (TextView) layout_sub.findViewById(R.id.adapter_dist_roles_textview);
-        final Button button_left = (Button) layout_sub.findViewById(R.id.adapter_dist_roles_butleft);
-        final Button button_right = (Button) layout_sub.findViewById(R.id.adapter_dist_roles_butright);
+        final RelativeLayout layout_sub = view.findViewById(R.id.adapter_dist_roles_relatlayout);
+        final CheckBox checkbox = view.findViewById(R.id.adapter_dist_roles_checkbox);
+        final TextView layout_sub_edittext = layout_sub.findViewById(R.id.adapter_dist_roles_textview);
+        final Button button_left = layout_sub.findViewById(R.id.adapter_dist_roles_butleft);
+        final Button button_right = layout_sub.findViewById(R.id.adapter_dist_roles_butright);
 
         checkbox.setText(roles.get(position).getNom());
 

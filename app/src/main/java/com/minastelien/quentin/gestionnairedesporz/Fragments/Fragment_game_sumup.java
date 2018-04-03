@@ -57,7 +57,7 @@ public class Fragment_game_sumup extends Fragment_main {
         lay_sumup = (CoordinatorLayout) inflater.inflate(R.layout.fragment_sumup_with_recap, null);
 
         // Initialize character list
-        ListView lv_sumup = (ListView) lay_sumup.findViewById(R.id.sumup_lv);
+        ListView lv_sumup = lay_sumup.findViewById(R.id.sumup_lv);
         ad_sumup = new Adapter_character_sumup(getActivity(), gameSingleton.getCurrent_game().getCharacters(), gameSingleton);
         lv_sumup.setAdapter(ad_sumup);
         lv_sumup.setLongClickable(true);
@@ -79,7 +79,7 @@ public class Fragment_game_sumup extends Fragment_main {
             }
         });
 
-        tv_recap = (TextView) lay_sumup.findViewById(R.id.fragment_sumup_tv);
+        tv_recap = lay_sumup.findViewById(R.id.fragment_sumup_tv);
         update_recap();
 
     }
@@ -157,9 +157,9 @@ public class Fragment_game_sumup extends Fragment_main {
             builder.setCancelable(true);
             builder.setTitle("Modifier personnage");
             RelativeLayout lay_dialog = (RelativeLayout) RelativeLayout.inflate(getActivity(), R.layout.dialog_modif_perso, null);
-            final CheckBox check_paralyse = (CheckBox) lay_dialog.findViewById(R.id.dialog_check_paralyse);
-            final CheckBox check_contamine = (CheckBox) lay_dialog.findViewById(R.id.dialog_check_contamine);
-            final CheckBox check_mort = (CheckBox) lay_dialog.findViewById(R.id.dialog_check_mort);
+            final CheckBox check_paralyse = lay_dialog.findViewById(R.id.dialog_check_paralyse);
+            final CheckBox check_contamine = lay_dialog.findViewById(R.id.dialog_check_contamine);
+            final CheckBox check_mort = lay_dialog.findViewById(R.id.dialog_check_mort);
 
             if (gameSingleton.getCurrent_game().getCharacters().get(indice_personnage).isParalyse()) {
                 check_paralyse.setChecked(true);

@@ -1,8 +1,6 @@
 package com.minastelien.quentin.gestionnairedesporz;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,17 +22,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.minastelien.quentin.gestionnairedesporz.Databases.DAO_PlayerNames;
 import com.minastelien.quentin.gestionnairedesporz.Game.Character;
 import com.minastelien.quentin.gestionnairedesporz.Game.Game;
-import com.minastelien.quentin.gestionnairedesporz.Game.Role;
-import com.minastelien.quentin.gestionnairedesporz.Utilities.Dates;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -74,9 +70,9 @@ public class Activity_setup_subj extends Activity_main {
      */
     private void build_subj() {
         // Initialisation du haut du layout
-        subj_tv = (TextView) subj_lay.findViewById(R.id.act_setup_subj_tv);
-        subj_et = (EditText) subj_lay.findViewById(R.id.act_setup_subj_et);
-        subj_bout_ok = (Button) subj_lay.findViewById(R.id.act_setup_subj_bout_ok);
+        subj_tv = subj_lay.findViewById(R.id.act_setup_subj_tv);
+        subj_et = subj_lay.findViewById(R.id.act_setup_subj_et);
+        subj_bout_ok = subj_lay.findViewById(R.id.act_setup_subj_bout_ok);
         subj_bout_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +92,7 @@ public class Activity_setup_subj extends Activity_main {
                 } else if (nom_est_doublon) {
                     Toast.makeText(getApplicationContext(), "Ce personnage existe déjà.", Toast.LENGTH_SHORT).show();
                 } else {
-                    gameSingleton.getCurrent_game().getCharacters().add(new Character(nom.toString()));
+                    gameSingleton.getCurrent_game().getCharacters().add(new Character(nom));
                     refresh();
                     subj_adapter.notifyDataSetChanged();
                 }
@@ -104,14 +100,14 @@ public class Activity_setup_subj extends Activity_main {
         });
 
         // Initialisation de la liste des personnages
-        subj_lv = (ListView) subj_lay.findViewById(R.id.act_setup_subj_lv);
+        subj_lv = subj_lay.findViewById(R.id.act_setup_subj_lv);
         Collections.sort(gameSingleton.getCurrent_game().getCharacters(), comparateur_personnage);
         subj_adapter = new ArrayAdapter<Character>(this, android.R.layout.simple_list_item_1, gameSingleton.getCurrent_game().getCharacters());
         subj_lv.setAdapter(subj_adapter);
         registerForContextMenu(subj_lv);
 
         // Initialisation du bouton suivant
-        subj_bout_suiv = (Button) subj_lay.findViewById(R.id.act_setup_subj_bout_suiv);
+        subj_bout_suiv = subj_lay.findViewById(R.id.act_setup_subj_bout_suiv);
         subj_bout_suiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,10 +132,10 @@ public class Activity_setup_subj extends Activity_main {
         Collections.sort(gameSingleton.getCurrent_game().getCharacters(), comparateur_personnage);
     }
 
-    @Override
     /**
      * If long pressed on the adapter view, shows a delete dialog.
      */
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         if (v == subj_lv) {
@@ -147,10 +143,10 @@ public class Activity_setup_subj extends Activity_main {
         }
     }
 
-    @Override
     /**
      * If delete is pressed in the context menu, deletes the character and refresh.
      */
+    @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         subj_adapter.remove(subj_adapter.getItem(info.position));
@@ -159,10 +155,10 @@ public class Activity_setup_subj extends Activity_main {
         return true;
     }
 
-    @Override
     /**
      * If back is pressed, shows a dialog asking confirmation, then quits if yes is pressed.
      */
+    @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setCancelable(true)
@@ -177,21 +173,22 @@ public class Activity_setup_subj extends Activity_main {
                 .show();
     }
 
-    @Override
     /**
      * [versionCode 14 versionName 2.05] Builds the options menu.
      */
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_players, menu);
         return true;
     }
 
-    @Override
+
     /**
      * [versionCode 14 versionName 2.05] Builds the options menu with two options; builds the listeners.
      * Enables the player to save or load a list of player names
      */
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -213,7 +210,7 @@ public class Activity_setup_subj extends Activity_main {
 
             // Get the text edit
             LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.dialog_save_player_list, null);
-            final EditText m_edit_text = (EditText) layout.findViewById(R.id.save_player_list);
+            final EditText m_edit_text = layout.findViewById(R.id.save_player_list);
 
             // Inflate and set the layout for the dialog
             // Pass null as the parent view because its going in the dialog layout
@@ -231,11 +228,22 @@ public class Activity_setup_subj extends Activity_main {
                             // Just close
                         }
                     })
-                    .setTitle("Enregistrer la liste")
-                    .setCancelable(false);
+                    .setTitle("Enregistrer la liste");
 
             final AlertDialog alertDialog = builder.create();
+            alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             alertDialog.show();
+
+            m_edit_text.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        ((InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                                .showSoftInput(m_edit_text,
+                                        InputMethodManager.SHOW_FORCED);
+                    }
+                }
+            });
 
             Button posButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
             posButton.setOnClickListener(new View.OnClickListener() {
@@ -264,7 +272,7 @@ public class Activity_setup_subj extends Activity_main {
 
             // Get the text edit
             LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.dialog_load_player_list, null);
-            final ListView list_view = (ListView) layout.findViewById(R.id.load_player_list);
+            final ListView list_view = layout.findViewById(R.id.load_player_list);
 
             // Inflate and set the layout for the dialog
             // Pass null as the parent view because its going in the dialog layout
@@ -272,12 +280,12 @@ public class Activity_setup_subj extends Activity_main {
                     .setTitle("Charger une liste");
 
             final AlertDialog alertDialog =
-                     builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    // Just close
-                                }
-                            })
+                    builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            // Just close
+                        }
+                    })
                             .create();
             alertDialog.show();
 
@@ -295,9 +303,9 @@ public class Activity_setup_subj extends Activity_main {
                     final int list_id = cursor.getInt(0);
                     final int list_player_count = cursor.getInt(2);
 
-                    TextView tv_name = (TextView) view.findViewById(R.id.load_player_list_tv);
+                    TextView tv_name = view.findViewById(R.id.load_player_list_tv);
                     tv_name.setText(list_name);
-                    TextView tv_count = (TextView) view.findViewById(R.id.load_player_list_tv_count);
+                    TextView tv_count = view.findViewById(R.id.load_player_list_tv_count);
                     tv_count.setText("" + list_player_count);
 
                     // If click on element, load list
