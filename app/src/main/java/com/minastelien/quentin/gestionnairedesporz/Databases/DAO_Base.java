@@ -10,15 +10,15 @@ import android.database.sqlite.SQLiteDatabase;
 public abstract class DAO_Base {
 
     // Database version number
-    protected final int VERSION = 3;
+    private final int VERSION = 4;
 
     // Database filename
-    protected final String FILENAME = "database.db";
+    private final String FILENAME = "database.db";
 
-    protected SQLiteDatabase mDb = null;
-    protected DatabaseHandler mHandler = null;
+    SQLiteDatabase mDb = null;
+    private DatabaseHandler mHandler = null;
 
-    public DAO_Base(Context pContext) {
+    DAO_Base(Context pContext) {
         this.mHandler = new DatabaseHandler(pContext, FILENAME, null, VERSION);
     }
 
@@ -27,7 +27,7 @@ public abstract class DAO_Base {
      *
      * @return Database object.
      */
-    public SQLiteDatabase open() {
+    SQLiteDatabase open() {
         // getWritableDatabase closes the old data stream if open
         mDb = mHandler.getWritableDatabase();
         return mDb;
@@ -36,7 +36,7 @@ public abstract class DAO_Base {
     /**
      * Closes the data stream.
      */
-    public void close() {
+    void close() {
         mDb.close();
     }
 

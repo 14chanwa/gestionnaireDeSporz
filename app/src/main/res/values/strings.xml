@@ -10,6 +10,13 @@
     <string name="menu_about">"A propos"</string>
     <string name="menu_about_text">"Développé par 14chanwa\nN'hésitez pas à prendre contact pour tout bug ! :)"</string>
 
+    <string name="menu_players_save">"Sauvegarder la liste"</string>
+    <string name="menu_players_load">"Charger une liste"</string>
+
+    <string name="dialog_list_instructions">"Clic pour charger, clic long pour supprimer"</string>
+    <string name="dialog_list_name">"Nom de la liste"</string>
+    <string name="dialog_list_player_count">"Nb joueurs"</string>
+
     <string name="menu_roles_distribuer">"Distribuer des rôles"</string>
     <string name="menu_roles_verifier">"Vérifier les rôles"</string>
     <string name="menu_aide">"Aide"</string>

@@ -57,7 +57,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         getDbSingleton().ROLE_NOM + " TEXT, " +
                         getDbSingleton().ROLE_CONTAMINE_DEPART + " INTEGER, " +
                         getDbSingleton().ROLE_CAMP_DEPART_MUTANT + " INTEGER, " +
-                        getDbSingleton().ROLE_DESCRIPTION + " STRING, " +
+                        getDbSingleton().ROLE_DESCRIPTION + " TEXT, " +
                         "UNIQUE(" + getDbSingleton().ROLE_KEY + ", " + getDbSingleton().ROLE_NOM + ") ON CONFLICT REPLACE" +
                         ");";
         final String GENE_TABLE_CREATE =
@@ -81,10 +81,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         "FOREIGN KEY(" + getDbSingleton().CHARACTER_ROLE_FK + ") REFERENCES " + getDbSingleton().ROLE_TABLE_NAME + '(' + getDbSingleton().ROLE_KEY + ')' +
                         "FOREIGN KEY(" + getDbSingleton().CHARACTER_GENE_FK + ") REFERENCES " + getDbSingleton().GENE_TABLE_NAME + '(' + getDbSingleton().GENE_KEY + ')' +
                         ");";
+        final String PLAYER_LISTS_TABLE_CREATE =
+                "CREATE TABLE " + getDbSingleton().PLAYER_LISTS_TABLE_NAME + " (" +
+                        getDbSingleton().PLAYER_LISTS_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        getDbSingleton().PLAYER_LISTS_NAME + " TEXT " +
+                        ");";
+        final String PLAYER_NAMES_TABLE_CREATE =
+                "CREATE TABLE " + getDbSingleton().PLAYER_NAMES_TABLE_NAME + " (" +
+                        getDbSingleton().PLAYER_NAMES_NAME + " TEXT, " +
+                        getDbSingleton().PLAYER_NAMES_LIST_FK + " INTEGER, " +
+                        "FOREIGN KEY(" + getDbSingleton().PLAYER_NAMES_LIST_FK + ") REFERENCES " + getDbSingleton().PLAYER_LISTS_TABLE_NAME + '(' + getDbSingleton().PLAYER_LISTS_KEY + ')' +
+                        ");";
+
         db.execSQL(JEU_TABLE_CREATE);
         db.execSQL(ROLE_TABLE_CREATE);
         db.execSQL(GENE_TABLE_CREATE);
         db.execSQL(PERSONNAGE_TABLE_CREATE);
+        db.execSQL(PLAYER_LISTS_TABLE_CREATE);
+        db.execSQL(PLAYER_NAMES_TABLE_CREATE);
         // Initial fill
         fill_gene(db);
         fill_role(db);
@@ -109,10 +123,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             final String ROLE_TABLE_DROP = "DROP TABLE IF EXISTS " + getDbSingleton().ROLE_TABLE_NAME + ";";
             final String GENE_TABLE_DROP = "DROP TABLE IF EXISTS " + getDbSingleton().GENE_TABLE_NAME + ";";
             final String PERSONNAGE_TABLE_DROP = "DROP TABLE IF EXISTS " + getDbSingleton().CHARACTER_TABLE_NAME + ";";
+            final String PLAYER_LISTS_TABLE_DROP = "DROP TABLE IF EXISTS " + getDbSingleton().PLAYER_LISTS_TABLE_NAME + ";";
+            final String PLAYER_NAMES_TABLE_DROP = "DROP TABLE IF EXISTS " + getDbSingleton().PLAYER_NAMES_TABLE_NAME + ";";
             db.execSQL(PERSONNAGE_TABLE_DROP);
             db.execSQL(GENE_TABLE_DROP);
             db.execSQL(ROLE_TABLE_DROP);
             db.execSQL(JEU_TABLE_DROP);
+            db.execSQL(PLAYER_LISTS_TABLE_DROP);
+            db.execSQL(PLAYER_NAMES_TABLE_DROP);
             onCreate(db);
         }
     }
@@ -177,6 +195,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         public final String CHARACTER_CONTAMINE = "p_contamine";
         public final String CHARACTER_PARALYSE = "p_paralyse";
         public final String CHARACTER_MORT_CONFIRME = "p_mort_confirme";
+
+        public final String PLAYER_LISTS_TABLE_NAME = "PlayerLists";
+        public final String PLAYER_LISTS_KEY = "_id";
+        public final String PLAYER_LISTS_NAME = "l_n";
+
+        public final String PLAYER_NAMES_TABLE_NAME = "PlayerNames";
+        public final String PLAYER_NAMES_LIST_FK = "_list";
+        public final String PLAYER_NAMES_NAME = "p_n";
 
         private DbSingleton() {
         }

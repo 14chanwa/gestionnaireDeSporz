@@ -100,6 +100,7 @@ public class Game {
         public final HashSet<String> FORBIDDEN_PLAYER_NAMES = new HashSet<String>() {{
             add("");
             add("Blanc");
+            add("Abstention");
         }};
         /*
          * Gene attributes
