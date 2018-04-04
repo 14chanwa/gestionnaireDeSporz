@@ -7,8 +7,8 @@ android {
         applicationId "com.minastelien.quentin.gestionnairedesporz"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 15
-        versionName "2.05"
+        versionCode 16
+        versionName "2.06"
     }
     buildTypes {
         release {

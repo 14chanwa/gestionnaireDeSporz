@@ -105,14 +105,7 @@ public class Activity_welcome extends Activity_main {
         gameSingleton.getCurrent_game().setGame_hist("Jeu de démo\n\n");
 
         String s = "*********************\nDébut du jeu\n" + Dates.date() + "\n";
-        s += "*********************\n\nLes rôles sont :\n";
-        for (Character p : gameSingleton.getCurrent_game().getCharacters()) {
-            s += p.getNom() + ", " + p.getRole();
-            if (!p.getGene().equals(gameSingleton.NORMAL)) {
-                s += ", " + p.getGene();
-            }
-            s += "\n";
-        }
+        s += "*********************\n";
         s += "\n";
         gameSingleton.getCurrent_game().addHist_jeu(s);
 

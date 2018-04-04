@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.minastelien.quentin.gestionnairedesporz.Activity_gameturn;
 import com.minastelien.quentin.gestionnairedesporz.Activity_gameturn_day;
 import com.minastelien.quentin.gestionnairedesporz.Activity_gameturn_night;
+import com.minastelien.quentin.gestionnairedesporz.Databases.DAO_Checkpoint;
 import com.minastelien.quentin.gestionnairedesporz.Game.Character;
 import com.minastelien.quentin.gestionnairedesporz.Game.Game;
 import com.minastelien.quentin.gestionnairedesporz.Game.Role;
@@ -41,9 +42,10 @@ import java.util.Set;
 public class Fragment_gameturn_night extends Fragment_gameturn {
 
     private final String KEY_CURRENT_ROLE = "current_role";
-    int current_role_index = 0;
+
     private RelativeLayout lay_role_night;
     private Button but_next;
+    private Button but_cancel;
 
     /**
      * [2.03] Checks if the user already mashed the 'next' button, so as not to trigger twice the
@@ -63,14 +65,38 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
 
         lay_role_night = frag_glob.findViewById(R.id.act_tour_nuit_role_layout);
         but_next = frag_glob.findViewById(R.id.act_tour_nuit_bouton_suivant);
+        but_cancel = frag_glob.findViewById(R.id.act_tour_nuit_bouton_annuler);
 
-        if (savedInstanceState != null) {
-            current_role_index = savedInstanceState.getInt(KEY_CURRENT_ROLE);
-        }
+        // [versionCode 16 versionName 2.06] Cancel to last checkpoint
+        but_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Load checkpoint
+                DAO_Checkpoint dao_checkpoint = new DAO_Checkpoint(getContext());
+                gameSingleton.current_role_index = dao_checkpoint.load_last_checkpoint();
+
+                gameSingleton.getCurrent_game().addHist_jeu("---\nAnnulation du dernier tour de jeu !\n\n");
+                ((Activity_gameturn_night) getActivity()).update_all();
+
+                display_role(gameSingleton.current_role_index);
+            }
+        });
+
+//        if (savedInstanceState != null) {
+//            current_role_index = savedInstanceState.getInt(KEY_CURRENT_ROLE);
+//        }
 
         update();
 
         return frag_glob;
+    }
+
+    /**
+     * [versionCode 16 versionName 2.06] Make checkpoint
+     */
+    private void make_checkpoint() {
+        DAO_Checkpoint dao_checkpoint = new DAO_Checkpoint(getContext());
+        dao_checkpoint.save_checkpoint();
     }
 
 
@@ -84,6 +110,14 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         int index_max = Game.getGameSingleton().ROLES_LIST_NIGHT.size() - 1;
 
         if (index <= index_max) {
+
+            // [versionCode 16 versionName 2.06] Disable cancel button if first role
+            if (index == 0) {
+                but_cancel.setEnabled(false);
+            } else {
+                but_cancel.setEnabled(true);
+            }
+
             lay_role_night.removeAllViews();
             Role role = Game.getGameSingleton().ROLES_LIST_NIGHT.get(index);
 
@@ -153,11 +187,11 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
     private void display_next_role() {
 
         // Select next role
-        current_role_index++;
+        gameSingleton.current_role_index++;
 
         // Display next role if victory conditions are not satisfied
         if (!((Activity_gameturn) getActivity()).check_victory_conditions()) {
-            display_role(current_role_index);
+            display_role(gameSingleton.current_role_index);
             ((Activity_gameturn_night) getActivity()).update_all();
         }
 
@@ -232,6 +266,9 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
                 // [2.03]
                 if (!button_click_caught) { // check if the event was already triggered
 
+                    // [versionCode 16 versionName 2.06] Make checkpoint
+                    make_checkpoint();
+
                     Character perso_cible = (Character) mutant_sp.getSelectedItem();
                     Character perso_cible_paralyse = (Character) mutant_sp_paralyse.getSelectedItem();
 
@@ -275,7 +312,7 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
 
                         ((Activity_gameturn_night) getActivity()).update_all();
 
-                        // Ajouter l'un des loups à la liste des personnes visiteurs
+                        // Ajouter l'un des mutants à la liste des personnes visiteurs
                         int size = set_mutants_vivants.size();
                         int item = new Random().nextInt(size);
                         int i = 0;
@@ -381,6 +418,9 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
 
                 // [2.03]
                 if (!button_click_caught) { // check if the event was already triggered
+
+                    // [versionCode 16 versionName 2.06] Make checkpoint
+                    make_checkpoint();
 
                     if (layout_soigner.getVisibility() == View.VISIBLE) {
                         if (spinner_soigner_1.getVisibility() == View.VISIBLE && spinner_soigner_2.getVisibility() == View.VISIBLE) {
@@ -506,6 +546,9 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
             @Override
             public void onClick(View v) {
 
+                // [versionCode 16 versionName 2.06] Make checkpoint
+                make_checkpoint();
+
                 // Information pour le hacker
                 // L'informaticien a joué
                 gameSingleton.resultat_role_hacker.add(Game.GameSingleton.Night_action_result.INFORMATICIEN);
@@ -564,6 +607,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         but_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // [versionCode 16 versionName 2.06] Make checkpoint
+                make_checkpoint();
+
                 Character targeted_character = (Character) psychologue_spinner.getSelectedItem();
                 add_to_visit_list(targeted_character, pers_psychologue);
                 add_to_action_list(targeted_character, Game.GameSingleton.Night_action.PSYCHOLOGUE);
@@ -625,6 +672,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         but_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // [versionCode 16 versionName 2.06] Make checkpoint
+                make_checkpoint();
+
                 Character targeted_character = (Character) geneticien_spinner.getSelectedItem();
                 add_to_visit_list(targeted_character, pers_geneticien);
                 add_to_action_list(targeted_character, Game.GameSingleton.Night_action.GENETICIEN);
@@ -697,6 +748,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
             but_next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    // [versionCode 16 versionName 2.06] Make checkpoint
+                    make_checkpoint();
+
                     Character targeted_character = (Character) politicien_spinner.getSelectedItem();
                     add_to_visit_list(targeted_character, pers_politicien);
                     add_to_action_list(targeted_character, Game.GameSingleton.Night_action.POLITICIEN);
@@ -723,6 +778,9 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
             but_next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    // [versionCode 16 versionName 2.06] Make checkpoint
+                    make_checkpoint();
 
                     gameSingleton.getCurrent_game().addHist_jeu("---\nTour du politicien\n\n");
                     gameSingleton.getCurrent_game().addHist_jeu("Le politicien " + pers_politicien.getNom() + " ne joue pas car c'est le premier tour !\n\n");
@@ -834,6 +892,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
             but_next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    // [versionCode 16 versionName 2.06] Make checkpoint
+                    make_checkpoint();
+
                     Role role_cible = (Role) hacker_spinner.getSelectedItem();
                     Character targeted_character = return_character_given_role(role_cible);
 
@@ -854,6 +916,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
             but_next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    // [versionCode 16 versionName 2.06] Make checkpoint
+                    make_checkpoint();
+
                     gameSingleton.getCurrent_game().addHist_jeu("---\nTour du hacker\n\nLe hacker n'a personne à hacker ; il est donc informaticien.\n");
                     gameSingleton.getCurrent_game().addHist_jeu(hacker_tv_resultat.getText().toString() + "\n\n");
                     display_next_role();
@@ -963,6 +1029,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
             but_next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    // [versionCode 16 versionName 2.06] Make checkpoint
+                    make_checkpoint();
+
                     Role role_cible = (Role) apprenti_hacker_spinner.getSelectedItem();
                     Character targeted_character = return_character_given_role(role_cible);
 
@@ -983,6 +1053,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
             but_next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    // [versionCode 16 versionName 2.06] Make checkpoint
+                    make_checkpoint();
+
                     gameSingleton.getCurrent_game().addHist_jeu("---\nTour de l'apprenti hacker\n\nL'apprenti hacker n'a personne à hacker ; il est donc informaticien.\n");
                     gameSingleton.getCurrent_game().addHist_jeu(apprenti_hacker_tv_resultat.getText().toString() + "\n\n");
                     display_next_role();
@@ -1070,6 +1144,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         but_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // [versionCode 16 versionName 2.06] Make checkpoint
+                make_checkpoint();
+
                 Character targeted_character = (Character) espion_spinner.getSelectedItem();
                 add_to_visit_list(targeted_character, pers_espion);
 
@@ -1133,6 +1211,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         but_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // [versionCode 16 versionName 2.06] Make checkpoint
+                make_checkpoint();
+
                 Character targeted_character = (Character) peintre_spinner.getSelectedItem();
 
                 gameSingleton.getCurrent_game().addHist_jeu("---\nTour du peintre\n\nLe peintre choisit de marquer " +
@@ -1151,6 +1233,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         but_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // [versionCode 16 versionName 2.06] Make checkpoint
+                make_checkpoint();
+
                 gameSingleton.getCurrent_game().addHist_jeu("---\nLe personnage " + role.getNom() + " est mort.\n\n");
 
                 // Passage au suivant
@@ -1168,6 +1254,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         but_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // [versionCode 16 versionName 2.06] Make checkpoint
+                make_checkpoint();
+
                 gameSingleton.getCurrent_game().addHist_jeu("---\nLe personnage " + role.getNom() + " est paralysé.\n\n");
 
                 // Passage au suivant
@@ -1185,6 +1275,10 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
         but_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // [versionCode 16 versionName 2.06] Make checkpoint
+                make_checkpoint();
+
                 gameSingleton.getCurrent_game().addHist_jeu("---\nLe personnage " + role.getNom() + " est mutant.\n\n");
 
                 // Passage au suivant
@@ -1195,8 +1289,8 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(KEY_CURRENT_ROLE, current_role_index);
+//        super.onSaveInstanceState(outState);
+//        outState.putInt(KEY_CURRENT_ROLE, gameSingleton.current_role_index);
     }
 
     /**
@@ -1316,7 +1410,7 @@ public class Fragment_gameturn_night extends Fragment_gameturn {
             layout_game.setVisibility(View.INVISIBLE);
             layout_endgame.setVisibility(View.VISIBLE);
         } else {
-            display_role(current_role_index);
+            display_role(gameSingleton.current_role_index);
             layout_game.setVisibility(View.VISIBLE);
             layout_endgame.setVisibility(View.INVISIBLE);
         }

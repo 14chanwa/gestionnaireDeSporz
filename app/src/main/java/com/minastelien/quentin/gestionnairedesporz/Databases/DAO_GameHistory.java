@@ -163,8 +163,10 @@ public class DAO_GameHistory extends DAO_Base {
                 " FROM " + dbSingleton.GAME_TABLE_NAME +
                 " WHERE " + dbSingleton.GAME_TABLE_NAME + "." + dbSingleton.GAME_KEY + "=" + key, null);
         if (c.moveToFirst()) {
+            // [versionCode 16 versionName 2.05] Bugfix: cursor closed before access
+            String s = c.getString(0);
             c.close();
-            return c.getString(0);
+            return s;
         }
         c.close();
         return "Pas d'historique";

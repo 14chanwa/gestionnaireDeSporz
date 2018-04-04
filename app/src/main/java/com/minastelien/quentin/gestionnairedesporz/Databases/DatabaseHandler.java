@@ -99,9 +99,71 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(PERSONNAGE_TABLE_CREATE);
         db.execSQL(PLAYER_LISTS_TABLE_CREATE);
         db.execSQL(PLAYER_NAMES_TABLE_CREATE);
+
         // Initial fill
         fill_gene(db);
         fill_role(db);
+
+        // [versionCode 16 versionName 2.06] Checkpoints
+        final String CHECKPOINT_TABLE_CREATE =
+                "CREATE TABLE " + getDbSingleton().CHECKPOINT_TN + " (" +
+                        getDbSingleton().CHECKPOINT_PK + " INTEGER PRIMARY KEY);";
+        final String CHECKPOINT_CHARACTERS_TABLE_CREATE =
+                "CREATE TABLE " + getDbSingleton().CHECKPOINT_CHARACTERS_TN + " (" +
+                        getDbSingleton().CHECKPOINT_CHARACTERS_FK_CHECKPOINT + " INTEGER, " +
+                        getDbSingleton().CHECKPOINT_CHARACTERS_NOM + " TEXT, " +
+                        getDbSingleton().CHECKPOINT_CHARACTERS_MORT + " INTEGER, " +
+                        getDbSingleton().CHECKPOINT_CHARACTERS_CONTAMINE + " INTEGER, " +
+                        getDbSingleton().CHECKPOINT_CHARACTERS_PARALYSE + " INTEGER, " +
+                        getDbSingleton().CHECKPOINT_CHARACTERS_MORT_CONFIRME + " INTEGER, " +
+                        getDbSingleton().CHECKPOINT_CHARACTERS_VIVANT_DEB_TOUR + " INTEGER, " +
+                        "FOREIGN KEY(" + getDbSingleton().CHECKPOINT_CHARACTERS_FK_CHECKPOINT + ") REFERENCES " + getDbSingleton().CHECKPOINT_TN + '(' + getDbSingleton().CHECKPOINT_PK + ')' +
+                        "UNIQUE(" + getDbSingleton().CHECKPOINT_CHARACTERS_FK_CHECKPOINT + ", " + getDbSingleton().CHECKPOINT_CHARACTERS_NOM + ") ON CONFLICT REPLACE" +
+                        ");";
+
+        final String CHECKPOINT_ROLE_A_JOUE_NUIT_TABLE_CREATE =
+                "CREATE TABLE " + getDbSingleton().CHECKPOINT_ROLE_A_JOUE_NUIT_TN + " (" +
+                        getDbSingleton().CHECKPOINT_ROLE_A_JOUE_NUIT_FK_CHECKPOINT + " INTEGER, " +
+                        getDbSingleton().CHECKPOINT_ROLE_A_JOUE_NUIT_FK_ROLE + " INTEGER, " +
+                        "FOREIGN KEY(" + getDbSingleton().CHECKPOINT_ROLE_A_JOUE_NUIT_FK_CHECKPOINT + ") REFERENCES " + getDbSingleton().CHECKPOINT_TN + '(' + getDbSingleton().CHECKPOINT_PK + ')' +
+                        "FOREIGN KEY(" + getDbSingleton().CHECKPOINT_ROLE_A_JOUE_NUIT_FK_ROLE + ") REFERENCES " + getDbSingleton().ROLE_TABLE_NAME + '(' + getDbSingleton().ROLE_KEY + ')' +
+                        "UNIQUE(" + getDbSingleton().CHECKPOINT_ROLE_A_JOUE_NUIT_FK_CHECKPOINT + ", " + getDbSingleton().CHECKPOINT_ROLE_A_JOUE_NUIT_FK_ROLE + ") ON CONFLICT REPLACE" +
+                        ");";
+
+        final String CHECKPOINT_VISITES_NUIT_TABLE_CREATE =
+                "CREATE TABLE " + getDbSingleton().CHECKPOINT_VISITES_NUIT_TN + " (" +
+                        getDbSingleton().CHECKPOINT_VISITES_NUIT_FK_CHECKPOINT + " INTEGER, " +
+                        getDbSingleton().CHECKPOINT_VISITES_NUIT_FK_CHARACTER + " TEXT, " +
+                        getDbSingleton().CHECKPOINT_VISITES_NUIT_FK_VISITED + " TEXT, " +
+                        "FOREIGN KEY(" + getDbSingleton().CHECKPOINT_VISITES_NUIT_FK_CHECKPOINT + ") REFERENCES " + getDbSingleton().CHECKPOINT_TN + '(' + getDbSingleton().CHECKPOINT_PK + ')' +
+                        "FOREIGN KEY(" + getDbSingleton().CHECKPOINT_VISITES_NUIT_FK_CHARACTER + ") REFERENCES " + getDbSingleton().CHECKPOINT_CHARACTERS_TN + '(' + getDbSingleton().CHECKPOINT_CHARACTERS_NOM + ')' +
+                        "UNIQUE(" + getDbSingleton().CHECKPOINT_VISITES_NUIT_FK_CHECKPOINT + ", " + getDbSingleton().CHECKPOINT_VISITES_NUIT_FK_CHARACTER + ", " + getDbSingleton().CHECKPOINT_VISITES_NUIT_FK_VISITED + ") ON CONFLICT REPLACE" +
+                        ");";
+
+        final String CHECKPOINT_ACTIONS_TOUR_NUIT_TABLE_CREATE =
+                "CREATE TABLE " + getDbSingleton().CHECKPOINT_ACTIONS_TOUR_NUIT_TN + " (" +
+                        getDbSingleton().CHECKPOINT_ACTIONS_TOUR_NUIT_FK_CHECKPOINT + " INTEGER, " +
+                        getDbSingleton().CHECKPOINT_ACTIONS_TOUR_NUIT_FK_CHARACTER + " TEXT, " +
+                        getDbSingleton().CHECKPOINT_ACTIONS_TOUR_NUIT_ACTION + " INTEGER, " +
+                        "FOREIGN KEY(" + getDbSingleton().CHECKPOINT_ACTIONS_TOUR_NUIT_FK_CHECKPOINT + ") REFERENCES " + getDbSingleton().CHECKPOINT_TN + '(' + getDbSingleton().CHECKPOINT_PK + ')' +
+                        "FOREIGN KEY(" + getDbSingleton().CHECKPOINT_ACTIONS_TOUR_NUIT_FK_CHARACTER + ") REFERENCES " + getDbSingleton().CHECKPOINT_CHARACTERS_TN + '(' + getDbSingleton().CHECKPOINT_CHARACTERS_NOM + ')' +
+                        "UNIQUE(" + getDbSingleton().CHECKPOINT_ACTIONS_TOUR_NUIT_FK_CHECKPOINT + ", " + getDbSingleton().CHECKPOINT_ACTIONS_TOUR_NUIT_FK_CHARACTER + ", " + getDbSingleton().CHECKPOINT_ACTIONS_TOUR_NUIT_ACTION + ") ON CONFLICT REPLACE" +
+                        ");";
+
+        final String CHECKPOINT_RESULTATS_ROLE_HACKER_TABLE_CREATE =
+                "CREATE TABLE " + getDbSingleton().CHECKPOINT_RESULTATS_ROLE_HACKER_TN + " (" +
+                        getDbSingleton().CHECKPOINT_RESULTATS_ROLE_HACKER_FK_CHECKPOINT + " INTEGER, " +
+                        getDbSingleton().CHECKPOINT_RESULTATS_ROLE_HACKER_ACTION_RESULT + " INTEGER, " +
+                        "FOREIGN KEY(" + getDbSingleton().CHECKPOINT_RESULTATS_ROLE_HACKER_FK_CHECKPOINT + ") REFERENCES " + getDbSingleton().CHECKPOINT_TN + '(' + getDbSingleton().CHECKPOINT_PK + ')' +
+                        "UNIQUE(" + getDbSingleton().CHECKPOINT_RESULTATS_ROLE_HACKER_FK_CHECKPOINT + ", " + getDbSingleton().CHECKPOINT_RESULTATS_ROLE_HACKER_ACTION_RESULT + ") ON CONFLICT REPLACE" +
+                        ");";
+
+        db.execSQL(CHECKPOINT_TABLE_CREATE);
+        db.execSQL(CHECKPOINT_CHARACTERS_TABLE_CREATE);
+        db.execSQL(CHECKPOINT_ROLE_A_JOUE_NUIT_TABLE_CREATE);
+        db.execSQL(CHECKPOINT_VISITES_NUIT_TABLE_CREATE);
+        db.execSQL(CHECKPOINT_ACTIONS_TOUR_NUIT_TABLE_CREATE);
+        db.execSQL(CHECKPOINT_RESULTATS_ROLE_HACKER_TABLE_CREATE);
     }
 
     @Override
@@ -123,14 +185,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             final String ROLE_TABLE_DROP = "DROP TABLE IF EXISTS " + getDbSingleton().ROLE_TABLE_NAME + ";";
             final String GENE_TABLE_DROP = "DROP TABLE IF EXISTS " + getDbSingleton().GENE_TABLE_NAME + ";";
             final String PERSONNAGE_TABLE_DROP = "DROP TABLE IF EXISTS " + getDbSingleton().CHARACTER_TABLE_NAME + ";";
+
             final String PLAYER_LISTS_TABLE_DROP = "DROP TABLE IF EXISTS " + getDbSingleton().PLAYER_LISTS_TABLE_NAME + ";";
             final String PLAYER_NAMES_TABLE_DROP = "DROP TABLE IF EXISTS " + getDbSingleton().PLAYER_NAMES_TABLE_NAME + ";";
+
+            final String CHECKPOINT_TABLE_DROP = "DROP TABLE IF EXISTS " + getDbSingleton().CHECKPOINT_TN + ";";
+            final String CHECKPOINT_CHARACTERS_TABLE_DROP = "DROP TABLE IF EXISTS " + getDbSingleton().CHECKPOINT_CHARACTERS_TN + ";";
+            final String CHECKPOINT_ROLE_A_JOUE_NUIT_TABLE_DROP = "DROP TABLE IF EXISTS " + getDbSingleton().CHECKPOINT_ROLE_A_JOUE_NUIT_TN + ";";
+            final String CHECKPOINT_VISITES_NUIT_TABLE_DROP = "DROP TABLE IF EXISTS " + getDbSingleton().CHECKPOINT_VISITES_NUIT_TN + ";";
+            final String CHECKPOINT_ACTIONS_TOUR_NUIT_TABLE_DROP = "DROP TABLE IF EXISTS " + getDbSingleton().CHECKPOINT_ACTIONS_TOUR_NUIT_TN + ";";
+            final String CHECKPOINT_RESULTATS_ROLE_HACKER_TABLE_DROP = "DROP TABLE IF EXISTS " + getDbSingleton().CHECKPOINT_RESULTATS_ROLE_HACKER_TN + ";";
+
+            db.execSQL(PLAYER_LISTS_TABLE_DROP);
+            db.execSQL(PLAYER_NAMES_TABLE_DROP);
+
+            db.execSQL(CHECKPOINT_RESULTATS_ROLE_HACKER_TABLE_DROP);
+            db.execSQL(CHECKPOINT_ACTIONS_TOUR_NUIT_TABLE_DROP);
+            db.execSQL(CHECKPOINT_VISITES_NUIT_TABLE_DROP);
+            db.execSQL(CHECKPOINT_ROLE_A_JOUE_NUIT_TABLE_DROP);
+            db.execSQL(CHECKPOINT_CHARACTERS_TABLE_DROP);
+            db.execSQL(CHECKPOINT_TABLE_DROP);
+
             db.execSQL(PERSONNAGE_TABLE_DROP);
             db.execSQL(GENE_TABLE_DROP);
             db.execSQL(ROLE_TABLE_DROP);
             db.execSQL(JEU_TABLE_DROP);
-            db.execSQL(PLAYER_LISTS_TABLE_DROP);
-            db.execSQL(PLAYER_NAMES_TABLE_DROP);
+
             onCreate(db);
         }
     }
@@ -203,6 +283,43 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         public final String PLAYER_NAMES_TABLE_NAME = "PlayerNames";
         public final String PLAYER_NAMES_LIST_FK = "_list";
         public final String PLAYER_NAMES_NAME = "p_n";
+
+        public final String CHECKPOINT_TN = "CheckpointList";
+        public final String CHECKPOINT_PK = "_id";
+
+        public final String CHECKPOINT_CHARACTERS_TN = "CheckpointCharacters";
+        public final String CHECKPOINT_CHARACTERS_FK_CHECKPOINT = "_checkpoint";
+//        public final String CHECKPOINT_CHARACTERS_FK_ROLE = CHARACTER_ROLE_FK;
+//        public final String CHECKPOINT_CHARACTERS_FK_GENE = CHARACTER_GENE_FK;
+        public final String CHECKPOINT_CHARACTERS_NOM = CHARACTER_NOM;
+        public final String CHECKPOINT_CHARACTERS_MORT = CHARACTER_MORT;
+        public final String CHECKPOINT_CHARACTERS_CONTAMINE = CHARACTER_CONTAMINE;
+        public final String CHECKPOINT_CHARACTERS_PARALYSE = CHARACTER_PARALYSE;
+        public final String CHECKPOINT_CHARACTERS_MORT_CONFIRME = CHARACTER_MORT_CONFIRME;
+        // Useless but implemented
+        public final String CHECKPOINT_CHARACTERS_VIVANT_DEB_TOUR = "p_vivant_deb_tour";
+
+        public final String CHECKPOINT_ROLE_A_JOUE_NUIT_TN = "CheckpointRoleAJoueNuit";
+        public final String CHECKPOINT_ROLE_A_JOUE_NUIT_FK_CHECKPOINT = CHECKPOINT_CHARACTERS_FK_CHECKPOINT;
+        public final String CHECKPOINT_ROLE_A_JOUE_NUIT_FK_ROLE = CHARACTER_ROLE_FK;
+
+        public final String CHECKPOINT_VISITES_NUIT_TN = "CheckpointVisitesNuit";
+        public final String CHECKPOINT_VISITES_NUIT_FK_CHECKPOINT = CHECKPOINT_CHARACTERS_FK_CHECKPOINT;
+        public final String CHECKPOINT_VISITES_NUIT_FK_CHARACTER = "_p_name";
+        public final String CHECKPOINT_VISITES_NUIT_FK_VISITED = "_p_name_visited";
+
+        public final String CHECKPOINT_ACTIONS_TOUR_NUIT_TN = "CheckpointActionsTourNuit";
+        public final String CHECKPOINT_ACTIONS_TOUR_NUIT_FK_CHECKPOINT = CHECKPOINT_CHARACTERS_FK_CHECKPOINT;
+        public final String CHECKPOINT_ACTIONS_TOUR_NUIT_FK_CHARACTER = CHECKPOINT_VISITES_NUIT_FK_CHARACTER;
+        public final String CHECKPOINT_ACTIONS_TOUR_NUIT_ACTION = "action";
+
+        public final String CHECKPOINT_RESULTATS_ROLE_HACKER_TN = "CheckpointResultatRoleHacker";
+        public final String CHECKPOINT_RESULTATS_ROLE_HACKER_FK_CHECKPOINT = CHECKPOINT_CHARACTERS_FK_CHECKPOINT;
+        public final String CHECKPOINT_RESULTATS_ROLE_HACKER_ACTION_RESULT = "hackerActionResult";
+
+        // Could be useful if loading everything after reboot for instance
+        // but if only to rollback role, this does not change
+        //public final String CHECKPOINT_RESULTATS_VOTES_JOUR_TN = "CheckpointResultatsVotesJour";
 
         private DbSingleton() {
         }

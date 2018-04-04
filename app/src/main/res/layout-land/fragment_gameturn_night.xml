@@ -21,15 +21,40 @@
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/act_tour_nuit_bouton_suivant"
-            android:paddingRight="@dimen/activity_vertical_margin" />
+            android:layout_toLeftOf="@+id/act_tour_nuit_boutons_bas"
+            android:paddingRight="@dimen/activity_vertical_margin"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/act_tour_nuit_boutons_bas"
+            android:paddingEnd="@dimen/activity_vertical_margin" />
 
 
-        <com.minastelien.quentin.gestionnairedesporz.Utilities.VerticalButton
-            android:id="@+id/act_tour_nuit_bouton_suivant"
+        <TableLayout
+            android:id="@+id/act_tour_nuit_boutons_bas"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
+            <TableRow
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:gravity="center_vertical">
+                <com.minastelien.quentin.gestionnairedesporz.Utilities.VerticalButton
+                    android:id="@+id/act_tour_nuit_bouton_suivant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+            <TableRow
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:gravity="center_vertical">
+                <com.minastelien.quentin.gestionnairedesporz.Utilities.VerticalButton
+                    android:id="@+id/act_tour_nuit_bouton_annuler"
+                    android:text="@string/cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+        </TableLayout>
+
 
 
     </RelativeLayout>

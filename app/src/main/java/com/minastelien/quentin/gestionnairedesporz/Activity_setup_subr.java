@@ -65,16 +65,8 @@ public class Activity_setup_subr extends Activity_main {
      * Initializes the game history with basics information about the current gameSingleton.getCurrent_game().
      */
     private void init_hist() {
-        String s = "*********************\nDébut du jeu\n" + Dates.date() + "\n";
-        s += "*********************\n\nLes rôles sont :\n";
-        for (Character p : gameSingleton.getCurrent_game().getCharacters()) {
-            s += p.getNom() + ", " + p.getRole();
-            if (!p.getGene().equals(gameSingleton.NORMAL)) {
-                s += ", " + p.getGene();
-            }
-            s += "\n";
-        }
-        s += "\n";
+        String s = "*********************\nDébut du jeu\n" + Dates.date() + "\n*********************\n\n";
+
         gameSingleton.getCurrent_game().setGame_hist(s);
     }
 

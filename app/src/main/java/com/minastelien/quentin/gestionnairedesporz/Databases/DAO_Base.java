@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 public abstract class DAO_Base {
 
     // Database version number
-    private final int VERSION = 4;
+    private final int VERSION = 5;
 
     // Database filename
     private final String FILENAME = "database.db";

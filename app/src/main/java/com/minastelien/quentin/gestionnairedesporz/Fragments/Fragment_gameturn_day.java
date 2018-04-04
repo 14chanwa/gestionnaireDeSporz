@@ -23,6 +23,7 @@ import com.minastelien.quentin.gestionnairedesporz.Activity_gameturn;
 import com.minastelien.quentin.gestionnairedesporz.Activity_gameturn_night;
 import com.minastelien.quentin.gestionnairedesporz.Adapters.Adapter_character_vote;
 import com.minastelien.quentin.gestionnairedesporz.Game.Character;
+import com.minastelien.quentin.gestionnairedesporz.Game.Game;
 import com.minastelien.quentin.gestionnairedesporz.R;
 
 import java.util.ArrayList;
@@ -299,6 +300,7 @@ public class Fragment_gameturn_day extends Fragment_gameturn {
             builder.setView(lay_diag);
             builder.setPositiveButton(R.string.bout_suivant, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
+
                     // Switch to next activity
                     Intent nextActivity = new Intent(getActivity(), Activity_gameturn_night.class);
                     startActivity(nextActivity);

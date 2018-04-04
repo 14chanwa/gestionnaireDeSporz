@@ -18,14 +18,29 @@
             android:id="@+id/act_tour_nuit_role_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/act_tour_nuit_bouton_suivant"
+            android:layout_above="@+id/act_tour_nuit_boutons_bas"
             android:layout_alignParentTop="true" />
 
-        <Button
-            android:id="@+id/act_tour_nuit_bouton_suivant"
+        <TableLayout
+            android:id="@+id/act_tour_nuit_boutons_bas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true" />
+            android:stretchColumns="*"
+            android:layout_alignParentBottom="true">
+            <TableRow
+                android:layout_height="wrap_content"
+                android:gravity="fill">
+                <Button
+                    android:id="@+id/act_tour_nuit_bouton_annuler"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancel"/>
+                <Button
+                    android:id="@+id/act_tour_nuit_bouton_suivant"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+        </TableLayout>
 
     </RelativeLayout>
 

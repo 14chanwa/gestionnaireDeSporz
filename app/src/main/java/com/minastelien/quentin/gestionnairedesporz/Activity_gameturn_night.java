@@ -1,5 +1,6 @@
 package com.minastelien.quentin.gestionnairedesporz;
 
+import com.minastelien.quentin.gestionnairedesporz.Databases.DAO_Checkpoint;
 import com.minastelien.quentin.gestionnairedesporz.Fragments.Fragment_gameturn;
 import com.minastelien.quentin.gestionnairedesporz.Fragments.Fragment_gameturn_night;
 import com.minastelien.quentin.gestionnairedesporz.Game.Character;
@@ -35,6 +36,53 @@ public class Activity_gameturn_night extends Activity_gameturn {
         } else {
             gameSingleton.getCurrent_game().addHist_jeu("*********************\n" + "Nuit " + gameSingleton.getCurrent_game().getTurn_count() + "\n" + Dates.date() + "\n*********************\n\n");
         }
+
+        {
+            String s = "Les personnages en jeu sont :\n";
+            for (Character p : gameSingleton.getCurrent_game().getCharacters()) {
+                if (!p.isMort()) {
+                    s += p.getNom() + ", " + p.getRole();
+                    if (!p.getGene().equals(gameSingleton.NORMAL)) {
+                        s += ", " + p.getGene();
+                    }
+                    if (p.isContamine()) {
+                        s += ", Contaminé";
+                    }
+                    s += "\n";
+                }
+            }
+            s += "\n";
+            gameSingleton.getCurrent_game().addHist_jeu(s);
+        }
+
+        {
+            String s = "";
+            boolean first_write = true;
+            for (Character p : gameSingleton.getCurrent_game().getCharacters()) {
+                if (p.isMort()) {
+                    if (first_write) {
+                        s += "Les personnages morts sont :";
+                        first_write = false;
+                    }
+                    s += p.getNom() + ", " + p.getRole();
+                    if (!p.getGene().equals(gameSingleton.NORMAL)) {
+                        s += ", " + p.getGene();
+                    }
+                    s += "\n";
+                }
+            }
+            if (!first_write) {
+                s += "\n";
+            }
+            gameSingleton.getCurrent_game().addHist_jeu(s);
+        }
+
+        // [versionCode 16 versionName 2.06] reset night counter
+        gameSingleton.current_role_index = 0;
+
+        // [versionCode 16 versionName 2.06] clear all checkpoints
+        DAO_Checkpoint dao_checkpoint = new DAO_Checkpoint(this);
+        dao_checkpoint.remove_all_checkpoints();
 
         // Remise à zéro de tous les paramètres
         gameSingleton.visites_tour_nuit = new HashMap<>();

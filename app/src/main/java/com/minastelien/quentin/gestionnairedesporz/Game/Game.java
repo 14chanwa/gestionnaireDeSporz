@@ -60,6 +60,15 @@ public class Game {
         return characters;
     }
 
+    public Character getCharacterByName(String name) throws Exception {
+        for (int i=0; i< characters.size(); i++) {
+            if (characters.get(i).getNom().equals(name)) {
+                return characters.get(i);
+            }
+        }
+        throw new Exception("Unknown character name");
+    }
+
     public void setCharacters(ArrayList<Character> characters) {
         this.characters = characters;
     }
@@ -173,6 +182,7 @@ public class Game {
         /*
          * Game related attributes
          */
+        public int current_role_index = 0;
         public ArrayList<Character> personnages_vivants_debut_tour = new ArrayList<>();
         public HashSet<Role> role_a_joue_nuit = new HashSet<>();
         public HashMap<Character, Set<Character>> visites_tour_nuit = new HashMap<>();
@@ -200,19 +210,56 @@ public class Game {
             return this.current_game;
         }
 
+        public Role getRoleByName(String name) throws Exception {
+            for (int i=0; i< ROLES_LIST.size(); i++) {
+                if (ROLES_LIST.get(i).getNom().equals(name)) {
+                    return ROLES_LIST.get(i);
+                }
+            }
+            throw new Exception("Unknown role name");
+        }
+
 
         /**
          * Enumerate possible night actions.
          * Created by Quentin on 02/02/2016.
          */
         public enum Night_action {
-            TUE,
-            MUTE,
-            PARALYSE,
-            SOIGNE,
-            PSYCHOLOGUE,
-            GENETICIEN,
-            POLITICIEN
+            TUE(0),
+            MUTE(1),
+            PARALYSE(2),
+            SOIGNE(3),
+            PSYCHOLOGUE(4),
+            GENETICIEN(5),
+            POLITICIEN(6);
+
+            private final int value;
+            Night_action(int value) {
+                this.value = value;
+            }
+
+            public int getValue() {
+                return value;
+            }
+
+            public static Night_action getInstance(int i) {
+                switch(i) {
+                    case 0:
+                        return TUE;
+                    case 1:
+                        return MUTE;
+                    case 2:
+                        return PARALYSE;
+                    case 3:
+                        return SOIGNE;
+                    case 4:
+                        return PSYCHOLOGUE;
+                    case 5:
+                        return GENETICIEN;
+                    default:
+                        return POLITICIEN;
+                }
+            }
         }
 
         /**
@@ -220,13 +267,41 @@ public class Game {
          * Created by Quentin on 02/02/2016.
          */
         public enum Night_action_result {
-            INFORMATICIEN,
-            PSY_SAIN,
-            PSY_MUTANT,
-            GENE_HOTE,
-            GENE_NORMAL,
-            GENE_RESISTANT,
-            POLITICIEN
+            INFORMATICIEN(0),
+            PSY_SAIN(1),
+            PSY_MUTANT(2),
+            GENE_HOTE(3),
+            GENE_NORMAL(4),
+            GENE_RESISTANT(5),
+            POLITICIEN(6);
+
+            private final int value;
+            Night_action_result(int value) {
+                this.value = value;
+            }
+
+            public int getValue() {
+                return value;
+            }
+
+            public static Night_action_result getInstance(int i) {
+                switch(i) {
+                    case 0:
+                        return INFORMATICIEN;
+                    case 1:
+                        return PSY_SAIN;
+                    case 2:
+                        return PSY_MUTANT;
+                    case 3:
+                        return GENE_HOTE;
+                    case 4:
+                        return GENE_NORMAL;
+                    case 5:
+                        return GENE_RESISTANT;
+                    default:
+                        return POLITICIEN;
+                }
+            }
         }
     }
 }
