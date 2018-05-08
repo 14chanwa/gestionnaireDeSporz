@@ -7,8 +7,8 @@ android {
         applicationId "com.minastelien.quentin.gestionnairedesporz"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 16
-        versionName "2.06"
+        versionCode 17
+        versionName "2.07"
     }
     buildTypes {
         release {
@@ -25,7 +25,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.android.support:support-v4:27.1.0'
-    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
 }

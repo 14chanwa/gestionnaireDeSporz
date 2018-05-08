@@ -142,7 +142,9 @@ public class Activity_setup_subr_dist extends Activity_main {
 
                     // Ajoute autant de simples astronautes que nécessaire
                     // [versionCode 15 versionName 2.05] Fixed fatal bug ("+1" below)
-                    for (int i = 0; i < gameSingleton.getCurrent_game().getCharacters().size() + 1 - roles_choisis.size(); i++) {
+//                    for (int i = 0; i < gameSingleton.getCurrent_game().getCharacters().size() + 1 - roles_choisis.size(); i++) {
+                    // [versionCode 17 versionName 2.07] Hopefully fix the IndexOutOfBoundsException below
+                    while (roles_choisis.size() < gameSingleton.getCurrent_game().getCharacters().size()) {
                         roles_choisis.add(gameSingleton.SIMPLE_ASTRONAUTE);
                     }
 
