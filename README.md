@@ -3,6 +3,15 @@
 Resources for Android app 'Gestionnaire de Sporz'.
 
 
+## Confidentiality policy for Google Play Store
+
+
+The app is entirely open source, no data is collected and no data is sent over the internet.
+
+
+## Description
+
+
 The app is available [on Google Play](https://play.google.com/store/apps/details?id=com.minastelien.quentin.gestionnairedesporz). This is my sandbox application ; I used it mainly to experiment with SQLite and responsive design features in Android. For instance, I spent some time adapting the application to tablet landscape mode. Check out the Google Play page and test for yourself!
 
 
